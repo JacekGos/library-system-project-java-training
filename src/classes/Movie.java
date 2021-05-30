@@ -13,4 +13,12 @@ public class Movie extends LibraryElement{
     public int getDurationTime() {
         return durationTime;
     }
+
+    public byte getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(byte typeId) {
+        this.typeId = typeId;
+    }
 }

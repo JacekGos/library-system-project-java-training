@@ -6,9 +6,33 @@ public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
-    static <T> boolean checkOptionValidation(T choosedOption){
-        System.out.println("Interface");
-        return false;
+    static int checkChoosedOptionValidation(int amountOfOptions){
+
+        boolean isCorrect = false;
+        int value = 0;
+
+        System.out.println("Wybierz opcje: ");
+
+        while (isCorrect != true){
+
+
+            try{
+                value = myInput.nextByte();
+            }catch (Exception e){
+                System.out.println("Nieprawidłowa wartość, spróbuj ponownie:");
+                myInput.nextLine(); //Added because scanner had all the time first introduced value so there was always an exception
+                continue;
+            }
+
+            if (value > 0 && value <= amountOfOptions){
+                isCorrect = true;
+            }else{
+                System.out.println("Nieprawidłowa wartość, spróbuj ponownie:");
+                continue;
+            }
+        }
+
+        return value;
     }
 
 }

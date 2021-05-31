@@ -30,14 +30,8 @@ public final class UserMenu implements MenuHelper {
                            "3. Zwróć\n" +
                            "4. Twoje wypożyczenia\n" +
                            "5. Wyloguj");
-        try{
-            choosedOption = myInput.nextByte();
-        }catch (Exception e){
-            System.out.println("Nastąpił błąd...");
-        }
 
-        //choosedOption = myInput.nextByte();
-        System.out.println(MenuHelper.checkOptionValidation(choosedOption));
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(4);
 
         chooseUserMenuOption(choosedOption);
 

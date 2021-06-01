@@ -9,20 +9,6 @@ public final class UserMenu implements MenuHelper {
 
     private UserMenu(){}
 
-    public static void logOnPanel(){
-
-        String login = null;
-        String password = null;
-
-        System.out.println("Witaj!");
-
-        System.out.print("Login: ");
-        login = myInput.next();
-
-        System.out.print("Password: ");
-        password = myInput.next();
-    }
-
     public static void showUserMenu(){
         System.out.println("_____________________");
         System.out.println("Menu główne: ");

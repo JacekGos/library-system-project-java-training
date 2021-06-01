@@ -7,7 +7,7 @@ public class WorkerMenu implements MenuHelper{
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
 
-    public static void showWorkerMenu(){
+    protected static void showWorkerMenu(){
         System.out.println("_____________________");
         System.out.println("Menu główne: ");
         System.out.println("1. Stwórz nowe konto\n" +

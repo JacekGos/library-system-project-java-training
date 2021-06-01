@@ -6,6 +6,20 @@ public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
+    static void logOnPanel(){
+
+        String login = null;
+        String password = null;
+
+        System.out.println("Witaj!");
+
+        System.out.print("Login: ");
+        login = myInput.next();
+
+        System.out.print("Password: ");
+        password = myInput.next();
+    }
+
     static int checkChoosedOptionValidation(int amountOfOptions){
 
         boolean isCorrect = false;

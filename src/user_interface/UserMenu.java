@@ -24,12 +24,14 @@ public final class UserMenu implements MenuHelper {
     }
 
     public static void showUserMenu(){
-        System.out.println("Wybierz opcje: ");
+        System.out.println("_____________________");
+        System.out.println("Menu główne: ");
         System.out.println("1. Wyszukaj\n" +
-                           "2. Wypożycz\n" +
-                           "3. Zwróć\n" +
-                           "4. Twoje wypożyczenia\n" +
-                           "5. Wyloguj");
+                            "2. Wypożycz\n" +
+                            "3. Zwróć\n" +
+                            "4. Twoje wypożyczenia\n" +
+                            "5. Wyloguj");
+        System.out.print("Wybierz opcje: ");
 
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(4);
 
@@ -52,12 +54,12 @@ public final class UserMenu implements MenuHelper {
                 userBorrowingsView();
                 break;
             default:
-                System.out.printf("Błąd!\n ");
+                System.out.println("Błąd!\n ");
         }
     }
 
     private static void searcherView(){
-        System.out.printf("Wyszukiwarka:\n ");
+        System.out.println("Wyszukiwarka:\n ");
     }
 
     private static void borrowingView(){

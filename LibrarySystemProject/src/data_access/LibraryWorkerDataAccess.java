@@ -3,6 +3,8 @@ package data_access;
 import classes.LibraryWorker;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LibraryWorkerDataAccess {
@@ -58,13 +60,12 @@ public class LibraryWorkerDataAccess {
 
             int status = 0;
 
-            String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Librarian]" +
-                    "SET name = ?, surname = ?, login = ?, password = ?, account_type = ? WHERE librarian_id = ?";
-
-
             try {
 
                 Connection connection = getConnection();
+
+                String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Librarian]" +
+                        "SET name = ?, surname = ?, login = ?, password = ?, account_type = ? WHERE librarian_id = ?";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                 preparedStatement.setString(1, libraryWorker.getUserName());
@@ -84,5 +85,99 @@ public class LibraryWorkerDataAccess {
 
             return status;
 
+        }
+
+        public static int deleteLibraryWorker(int libraryWorkerId) {
+
+            int status = 0;
+
+            try {
+
+                Connection connection = getConnection();
+
+                String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Librarian] WHERE librarian_id = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                preparedStatement.setInt(1, libraryWorkerId);
+
+                status = preparedStatement.executeUpdate();
+
+                connection.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            return status;
+        }
+
+        public static LibraryWorker getLibraryWorkerById(int libraryWorkerId) {
+
+            LibraryWorker libraryWorker = new LibraryWorker();
+
+            try {
+                Connection connection = getConnection();
+
+                String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Librarian] WHERE librarian_id = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                preparedStatement.setInt(1, libraryWorkerId);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if(resultSet.next()) {
+
+                    libraryWorker.setUserId(resultSet.getInt(1));
+                    libraryWorker.setUserName(resultSet.getString(2));
+                    libraryWorker.setUserSurName(resultSet.getString(3));
+                    libraryWorker.setLogin(resultSet.getString(4));
+                    libraryWorker.setPassword(resultSet.getString(5));
+                    libraryWorker.setAccountType(resultSet.getInt(6));
+
+                }
+
+                connection.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            return libraryWorker;
+
+        }
+
+        public static List<LibraryWorker> getAllLibraryWorkers() {
+
+            List<LibraryWorker> libraryWorkerList = new ArrayList<LibraryWorker>();
+
+            Connection connection = getConnection();
+
+            try {
+
+                String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Librarian]";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    LibraryWorker libraryWorker = new LibraryWorker();
+                    libraryWorker.setUserId(resultSet.getInt(1));
+                    libraryWorker.setUserName(resultSet.getString(2));
+                    libraryWorker.setUserSurName(resultSet.getString(3));
+                    libraryWorker.setLogin(resultSet.getString(4));
+                    libraryWorker.setPassword(resultSet.getString(5));
+                    libraryWorker.setAccountType(resultSet.getInt(6));
+
+                    libraryWorkerList.add(libraryWorker);
+                }
+
+                connection.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            return libraryWorkerList;
         }
 }

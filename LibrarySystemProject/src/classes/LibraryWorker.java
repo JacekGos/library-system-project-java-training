@@ -2,7 +2,9 @@ package classes;
 
 public class LibraryWorker extends User{
 
-    protected LibraryWorker(int userId, String userName, String userSurName, String login, String password) {
-        super(userId, userName, userSurName, login, password);
+    public LibraryWorker(int userId, String userName, String userSurName, String login, String password, int accountType) {
+        super(userId, userName, userSurName, login, password, accountType);
     }
+
+
 }

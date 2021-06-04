@@ -7,13 +7,15 @@ public abstract class User {
     private String userSurName;
     private String login;
     private String password;
+    private int accountType;
 
-    public User(int userId, String userName, String userSurName, String login, String password) {
+    public User(int userId, String userName, String userSurName, String login, String password, int accountType) {
         this.userId = userId;
         this.userName = userName;
         this.userSurName = userSurName;
         this.login = login;
         this.password = password;
+        this.accountType = accountType;
     }
 
     public int getUserId() {
@@ -42,6 +44,10 @@ public abstract class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public int getAccountType(){
+        return accountType;
     }
 
     public void changePassword(String newPassword) {

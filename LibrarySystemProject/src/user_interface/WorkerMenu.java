@@ -1,6 +1,7 @@
 package user_interface;
 
 import classes.LibraryWorker;
+import data_access.LibraryWorkerDataAccess;
 
 import java.util.Scanner;
 
@@ -34,7 +35,7 @@ public class WorkerMenu implements MenuHelper{
 
         switch (choosedOption){
             case 1:
-                createAccountView();
+                createAccountView(libraryWorker);
                 break;
             case 2:
                 deleteAccountView();
@@ -60,8 +61,23 @@ public class WorkerMenu implements MenuHelper{
         }
     }
 
-    private static void createAccountView(){
+    private static void createAccountView(LibraryWorker libraryWorker){
         System.out.println("_____________________");
+        System.out.println("Tworzenie konta użytkownika:\n" +
+                "1. Rozpocznij kreator konta\n" +
+                "2. Powrót");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                userAccountCreator(libraryWorker);
+                break;
+            case 2:
+                showWorkerMenu(libraryWorker);
+                break;
+        }
 
     }
 
@@ -95,6 +111,43 @@ public class WorkerMenu implements MenuHelper{
 
     }
 
+    public static void userAccountCreator(LibraryWorker libraryWorker) {
 
+        int accountType = 2;
+        String name = null;
+        String surName = null;
+
+        System.out.println("_____________________");
+        System.out.println("Kreator konta: ");
+        System.out.print("1. Pracownik biblioteki\n" +
+                        "2. Użytkownik biblioteki\n" +
+                        "Podaj typ konta: ");
+        accountType = MenuHelper.checkChoosedOptionValidation(2);
+
+        System.out.print("Imie: ");
+        name = MenuHelper.formatName();
+
+        System.out.print("Nazwisko: ");
+        surName = MenuHelper.formatName();
+
+        if (accountType == 1) {
+
+            String login = MenuHelper.loginCreator(name, surName, accountType);
+            LibraryWorker libraryWorkerToCreate = new LibraryWorker(0, name, surName, login, "password", 1);
+
+            LibraryWorkerDataAccess.insertLibraryWorker(libraryWorkerToCreate);
+
+        } else if (accountType == 2) {
+
+        } else {
+            System.out.println("Nastąpił błąd!");
+            WorkerMenu.createAccountView(libraryWorker);
+        }
+
+    }
+
+    public int createNewLibraryWorker(LibraryWorker libraryWorker) {
+        return 0;
+    }
 
 }

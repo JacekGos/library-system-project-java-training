@@ -13,14 +13,13 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) {
-       // LibraryWorker worker1 = new LibraryWorker(6, "Lukasz", "Gos", "lukasz.gos", "a", 1);
-       MenuHelper.logOnPanel();
 
-        /*LibraryWorker worker1 = new LibraryWorker();
-        LibraryWorker worker2 = null;
 
-        System.out.println(Objects.isNull(worker1));
-        System.out.println(Objects.isNull(worker2));*/
+        MenuHelper.logOnPanel();
+
+/*        int a = LibraryWorkerDataAccess.getNumberLibraryWorkersByNameAndSurname("mama", "Gos");
+
+        System.out.println(a);*/
 
 
         //usuwanie

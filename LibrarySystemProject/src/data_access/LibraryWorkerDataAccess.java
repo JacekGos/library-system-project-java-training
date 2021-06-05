@@ -54,6 +54,12 @@ public class LibraryWorkerDataAccess {
                 throwables.printStackTrace();
             }
 
+            if (status > 0) {
+                System.out.println("Konto utworzono pomyślnie");
+            } else {
+                System.out.println("Coś poszło nie tak...");
+            }
+
             return status;
         }
 
@@ -214,4 +220,41 @@ public class LibraryWorkerDataAccess {
 
             return libraryWorkerList;
         }
+
+    public static int getNumberLibraryWorkersByNameAndSurname(String name, String surName) {
+
+        List<LibraryWorker> libraryWorkerList = new ArrayList<LibraryWorker>();
+
+        Connection connection = getConnection();
+
+        try {
+
+            String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Librarian] WHERE name = ? AND surname = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, surName);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                LibraryWorker libraryWorker = new LibraryWorker();
+                libraryWorker.setUserId(resultSet.getInt(1));
+                libraryWorker.setUserName(resultSet.getString(2));
+                libraryWorker.setUserSurName(resultSet.getString(3));
+                libraryWorker.setLogin(resultSet.getString(4));
+                libraryWorker.setPassword(resultSet.getString(5));
+                libraryWorker.setAccountType(resultSet.getInt(6));
+
+                libraryWorkerList.add(libraryWorker);
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return libraryWorkerList.size();
+    }
 }

@@ -10,6 +10,9 @@ public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
+    /*
+    Finish it when LibraryUser connection to db will be created
+     */
     static void logOnPanel() {
 
         String login = null;
@@ -47,7 +50,6 @@ public interface MenuHelper {
 
         while (isCorrect != true){
 
-
             try{
                 value = myInput.nextByte();
             }catch (Exception e){
@@ -65,6 +67,48 @@ public interface MenuHelper {
         }
 
         return value;
+    }
+
+    static String loginCreator(String name, String surName, int accountType) {
+
+        String login = null;
+        char[] nameArray = name.toCharArray();
+        char[] surNameArray = surName.toCharArray();
+        int repeatedLogin = 0;
+
+        nameArray[0] = Character.toLowerCase(nameArray[0]);
+        surNameArray[0] = Character.toLowerCase(surNameArray[0]);
+
+        name = new String(nameArray);
+        surName = new String(surNameArray);
+        login = name + "." + surName;
+
+        repeatedLogin = LibraryWorkerDataAccess.getNumberLibraryWorkersByNameAndSurname(name, surName);
+
+        if (repeatedLogin == 0) {
+            login = name + "." + surName;
+        } else {
+            login = name + "." + (repeatedLogin + 1) + "." + surName;
+        }
+
+        return login;
+    }
+
+    static String formatName() {
+
+        String name;
+        name = myInput.next();
+        char[] nameArray = name.toCharArray();
+
+        nameArray[0] = Character.toUpperCase(nameArray[0]);
+
+        for (int i = 1; i < nameArray.length; i++) {
+            nameArray[i] = Character.toLowerCase(nameArray[i]);
+        }
+
+        name = new String(nameArray);
+
+        return name;
     }
 
 }

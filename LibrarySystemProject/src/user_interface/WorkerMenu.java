@@ -1,5 +1,7 @@
 package user_interface;
 
+import classes.LibraryWorker;
+
 import java.util.Scanner;
 
 public class WorkerMenu implements MenuHelper{
@@ -9,8 +11,9 @@ public class WorkerMenu implements MenuHelper{
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
 
-    public static void showWorkerMenu(){
+    public static void showWorkerMenu(LibraryWorker libraryWorker){
         System.out.println("_____________________");
+        System.out.println("Witaj " + libraryWorker.getUserName());
         System.out.println("Menu główne: ");
         System.out.println("1. Stwórz nowe konto\n" +
                             "2. Usuń konto\n" +
@@ -23,11 +26,11 @@ public class WorkerMenu implements MenuHelper{
 
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(7);
 
-        chooseWorkerMenuOption(choosedOption);
+        chooseWorkerMenuOption(choosedOption, libraryWorker);
 
     }
 
-    private static void chooseWorkerMenuOption(byte choosedOption){
+    private static void chooseWorkerMenuOption(byte choosedOption, LibraryWorker libraryWorker){
 
         switch (choosedOption){
             case 1:
@@ -53,7 +56,7 @@ public class WorkerMenu implements MenuHelper{
                 break;
             default:
                 System.out.println("Błąd!\n ");
-                showWorkerMenu();
+                showWorkerMenu(libraryWorker);
         }
     }
 

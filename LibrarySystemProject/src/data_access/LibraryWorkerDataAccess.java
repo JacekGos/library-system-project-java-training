@@ -5,6 +5,7 @@ import classes.LibraryWorker;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class LibraryWorkerDataAccess {
@@ -137,6 +138,39 @@ public class LibraryWorkerDataAccess {
                 }
 
                 connection.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            return libraryWorker;
+
+        }
+
+        public static LibraryWorker getLibraryWorkerByLogin(String login) {
+
+            LibraryWorker libraryWorker = new LibraryWorker();
+
+            try {
+
+                Connection connection = getConnection();
+
+                String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Librarian] WHERE login = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                preparedStatement.setString(1, login);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()) {
+
+                    libraryWorker.setUserId(resultSet.getInt(1));
+                    libraryWorker.setUserName(resultSet.getString(2));
+                    libraryWorker.setUserSurName(resultSet.getString(3));
+                    libraryWorker.setLogin(resultSet.getString(4));
+                    libraryWorker.setPassword(resultSet.getString(5));
+                    libraryWorker.setAccountType(resultSet.getInt(6));
+                }
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

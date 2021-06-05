@@ -1,12 +1,16 @@
 package user_interface;
 
+import classes.LibraryWorker;
+import data_access.LibraryWorkerDataAccess;
+
+import java.util.Objects;
 import java.util.Scanner;
 
 public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
-    static void logOnPanel(){
+    static void logOnPanel() {
 
         String login = null;
         String password = null;
@@ -18,6 +22,20 @@ public interface MenuHelper {
 
         System.out.print("Password: ");
         password = myInput.next();
+
+        LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
+
+        System.out.println(libraryWorker.getPassword() == null);
+
+        if (libraryWorker.getPassword() != null) {
+            if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
+                WorkerMenu.showWorkerMenu(libraryWorker);
+            }
+        } else if (libraryWorker.getUserId() != 0) {
+            System.out.println("Szukanie konta typu LibraryUser");
+        }
+
+
     }
 
     static int checkChoosedOptionValidation(int amountOfOptions){

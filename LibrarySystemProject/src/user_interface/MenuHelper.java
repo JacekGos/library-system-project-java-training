@@ -46,7 +46,7 @@ public interface MenuHelper {
         boolean isCorrect = false;
         int value = 0;
 
-        System.out.print("Wybierz opcje: ");
+//        System.out.print("Wybierz opcje: ");
 
         while (isCorrect != true){
 
@@ -58,7 +58,7 @@ public interface MenuHelper {
                 continue;
             }
 
-            if (value > 0 && value <= amountOfOptions){
+            if (value > 0 && value <= amountOfOptions || amountOfOptions == -1){
                 isCorrect = true;
             }else{
                 System.out.print("Nieprawidłowa wartość, spróbuj ponownie: ");
@@ -83,7 +83,7 @@ public interface MenuHelper {
         surName = new String(surNameArray);
         login = name + "." + surName;
 
-        repeatedLogin = LibraryWorkerDataAccess.getNumberLibraryWorkersByNameAndSurname(name, surName);
+        repeatedLogin = LibraryWorkerDataAccess.getNumberOfLibraryWorkersByNameAndSurname(name, surName);
 
         if (repeatedLogin == 0) {
             login = name + "." + surName;

@@ -14,12 +14,16 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*List<LibraryWorker> libraryWorkerList = new ArrayList<LibraryWorker>();
+
+        libraryWorkerList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId("Jacek", " ", 0);
+
+        for (LibraryWorker libraryWorker : libraryWorkerList) {
+            System.out.println(libraryWorker.getUserData());
+        }*/
 
         MenuHelper.logOnPanel();
 
-/*        int a = LibraryWorkerDataAccess.getNumberLibraryWorkersByNameAndSurname("mama", "Gos");
-
-        System.out.println(a);*/
 
 
         //usuwanie

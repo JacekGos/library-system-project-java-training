@@ -71,7 +71,7 @@ public abstract class User {
     }
 
     public String getUserData() {
-        return getUserId() + " " + getUserName() + " " + getUserSurName() + " " + getLogin() + " " + getPassword() + " " + getAccountType();
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
     }
 
 }

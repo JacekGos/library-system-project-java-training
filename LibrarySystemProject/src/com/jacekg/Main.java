@@ -1,6 +1,7 @@
 package com.jacekg;
 
 import classes.*;
+import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
 import user_interface.MenuHelper;
 import user_interface.UserMenu;
@@ -14,12 +15,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*List<LibraryWorker> libraryWorkerList = new ArrayList<LibraryWorker>();
+        /*List<LibraryUser> libraryUserList = new ArrayList<LibraryUser>();
 
-        libraryWorkerList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId("Jacek", " ", 0);
+        libraryUserList = LibraryUserDataAccess.getAllLibraryUsersByNameSurNameId("Bogdan", " ", 0);
 
-        for (LibraryWorker libraryWorker : libraryWorkerList) {
-            System.out.println(libraryWorker.getUserData());
+        for (LibraryUser libraryUser : libraryUserList) {
+            System.out.println(libraryUser.getUserData());
+            System.out.println(libraryUser.getAccountType());
         }*/
 
         MenuHelper.logOnPanel();

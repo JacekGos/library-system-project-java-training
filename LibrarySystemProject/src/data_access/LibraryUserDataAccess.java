@@ -27,7 +27,7 @@ public class LibraryUserDataAccess {
 
     }
 
-    public static int insertLibraryWorker(LibraryUser libraryUser) {
+    public static int insertLibraryUser(LibraryUser libraryUser) {
 
         int status = 0;
 
@@ -212,7 +212,8 @@ public class LibraryUserDataAccess {
                 libraryUser.setUserSurName(resultSet.getString(3));
                 libraryUser.setLogin(resultSet.getString(4));
                 libraryUser.setPassword(resultSet.getString(5));
-                libraryUser.setAccountType(resultSet.getInt(6));
+                libraryUser.setPenalty(resultSet.getDouble(6));
+                libraryUser.setAccountType(resultSet.getInt(7));
 
                 libraryUserList.add(libraryUser);
             }

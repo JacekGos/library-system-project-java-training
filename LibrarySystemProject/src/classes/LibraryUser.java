@@ -19,4 +19,9 @@ public class LibraryUser extends User{
     public void setPenalty(double penalty) {
         this.penalty = penalty;
     }
+
+    @Override
+    public String getUserData() {
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
+    }
 }

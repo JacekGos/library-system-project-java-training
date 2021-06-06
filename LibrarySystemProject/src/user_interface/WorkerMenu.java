@@ -1,6 +1,8 @@
 package user_interface;
 
+import classes.LibraryUser;
 import classes.LibraryWorker;
+import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
 
 import java.util.ArrayList;
@@ -81,6 +83,8 @@ public class WorkerMenu implements MenuHelper{
                 break;
         }
 
+        WorkerMenu.createAccountView(libraryWorker);
+
     }
 
     private static void deleteAccountView(LibraryWorker libraryWorker){
@@ -100,6 +104,8 @@ public class WorkerMenu implements MenuHelper{
                 showWorkerMenu(libraryWorker);
                 break;
         }
+
+        WorkerMenu.deleteAccountView(libraryWorker);
     }
 
     private static void findUserView(LibraryWorker libraryWorker){
@@ -181,6 +187,17 @@ public class WorkerMenu implements MenuHelper{
 
         } else if (accountType == 2) {
 
+            String login = MenuHelper.loginCreator(name, surName, accountType);
+            LibraryUser libraryUserToCreate = new LibraryUser(0, name, surName, login, "password", 2, 0.0);
+
+            status = LibraryUserDataAccess.insertLibraryUser(libraryUserToCreate);
+
+            if (status > 0) {
+                System.out.println("Konto zostało utworzone");
+            } else {
+                System.out.println("Coś poszło nie tak");
+            }
+
         } else {
             System.out.println("Nastąpił błąd!");
             WorkerMenu.createAccountView(libraryWorker);
@@ -209,12 +226,21 @@ public class WorkerMenu implements MenuHelper{
             status = LibraryWorkerDataAccess.deleteLibraryWorker(userId);
 
             if (status > 0) {
-                System.out.printf("Użytkownik o id %d został usunięty", userId);
+                System.out.printf("Użytkownik o id %d został usunięty%n", userId);
             } else {
                 System.out.println("Coś poszło nie tak");
             }
 
         } else if (accountType == 2) {
+
+            status = LibraryUserDataAccess.deleteLibraryUser(userId);
+
+            if (status > 0) {
+                System.out.printf("Użytkownik o id %d został usunięty%n", userId);
+            } else {
+                System.out.println("Coś poszło nie tak");
+            }
+
 
         } else {
             System.out.println("Nastąpił błąd!");
@@ -225,6 +251,7 @@ public class WorkerMenu implements MenuHelper{
     public static void userSearcher(LibraryWorker libraryWorker) {
 
         List<LibraryWorker> libraryWorkerList = new ArrayList<LibraryWorker>();
+        List<LibraryUser> libraryUserList = new ArrayList<LibraryUser>();
 
         String name;
         String surName;
@@ -245,12 +272,17 @@ public class WorkerMenu implements MenuHelper{
 
 
         libraryWorkerList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId(name, surName, userId);
+        libraryUserList = LibraryUserDataAccess.getAllLibraryUsersByNameSurNameId(name, surName, userId);
 
-        System.out.printf("Znaleziono %d wyników%n", libraryWorkerList.size());
+        System.out.printf("Znaleziono %d wyników%n", (libraryWorkerList.size() + libraryUserList.size()));
         System.out.println("Id -- Imie -- Nazwisko -- Nazwa użytkownika -- Typ użytkownika");
 
         for (LibraryWorker libraryWorkerObj : libraryWorkerList) {
             System.out.println(libraryWorkerObj.getUserData());
+        }
+
+        for (LibraryUser libraryUserObj : libraryUserList) {
+            System.out.println(libraryUserObj.getUserData());
         }
 
         System.out.print("<--- Wciśnij przycisk aby powrócić");

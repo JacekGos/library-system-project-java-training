@@ -1,12 +1,19 @@
 package user_interface;
 
+import classes.LibraryWorker;
+import data_access.LibraryWorkerDataAccess;
+
+import java.util.Objects;
 import java.util.Scanner;
 
 public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
-    static void logOnPanel(){
+    /*
+    Finish it when LibraryUser connection to db will be created
+     */
+    static void logOnPanel() {
 
         String login = null;
         String password = null;
@@ -18,6 +25,20 @@ public interface MenuHelper {
 
         System.out.print("Password: ");
         password = myInput.next();
+
+        LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
+
+        System.out.println(libraryWorker.getPassword() == null);
+
+        if (libraryWorker.getPassword() != null) {
+            if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
+                WorkerMenu.showWorkerMenu(libraryWorker);
+            }
+        } else if (libraryWorker.getUserId() != 0) {
+            System.out.println("Szukanie konta typu LibraryUser");
+        }
+
+
     }
 
     static int checkChoosedOptionValidation(int amountOfOptions){
@@ -25,10 +46,9 @@ public interface MenuHelper {
         boolean isCorrect = false;
         int value = 0;
 
-        System.out.print("Wybierz opcje: ");
+//        System.out.print("Wybierz opcje: ");
 
         while (isCorrect != true){
-
 
             try{
                 value = myInput.nextByte();
@@ -38,7 +58,7 @@ public interface MenuHelper {
                 continue;
             }
 
-            if (value > 0 && value <= amountOfOptions){
+            if (value > 0 && value <= amountOfOptions || amountOfOptions == -1){
                 isCorrect = true;
             }else{
                 System.out.print("Nieprawidłowa wartość, spróbuj ponownie: ");
@@ -49,4 +69,47 @@ public interface MenuHelper {
         return value;
     }
 
+    static String loginCreator(String name, String surName, int accountType) {
+
+        String login = null;
+        char[] nameArray = name.toCharArray();
+        char[] surNameArray = surName.toCharArray();
+        int repeatedLogin = 0;
+
+        nameArray[0] = Character.toLowerCase(nameArray[0]);
+        surNameArray[0] = Character.toLowerCase(surNameArray[0]);
+
+        name = new String(nameArray);
+        surName = new String(surNameArray);
+        login = name + "." + surName;
+
+        repeatedLogin = LibraryWorkerDataAccess.getNumberOfLibraryWorkersByNameAndSurname(name, surName);
+
+        if (repeatedLogin == 0) {
+            login = name + "." + surName;
+        } else {
+            login = name + "." + (repeatedLogin + 1) + "." + surName;
+        }
+
+        return login;
+    }
+
+    static String formatName() {
+
+        String name;
+        name = myInput.next();
+        char[] nameArray = name.toCharArray();
+
+        nameArray[0] = Character.toUpperCase(nameArray[0]);
+
+        for (int i = 1; i < nameArray.length; i++) {
+            nameArray[i] = Character.toLowerCase(nameArray[i]);
+        }
+
+        name = new String(nameArray);
+
+        return name;
+    }
+
 }
+

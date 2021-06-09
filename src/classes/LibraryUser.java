@@ -4,8 +4,13 @@ public class LibraryUser extends User{
 
     private double penalty;
 
-    protected LibraryUser(int userId, String userName, String userSurName, String login, String password) {
-        super(userId, userName, userSurName, login, password);
+    public LibraryUser(int userId, String userName, String userSurName, String login, String password, int accountType, double penalty) {
+        super(userId, userName, userSurName, login, password, accountType);
+        this.penalty = penalty;
+    }
+
+    public LibraryUser() {
+
     }
 
     public double getPenalty() {
@@ -14,5 +19,10 @@ public class LibraryUser extends User{
 
     public void setPenalty(double penalty) {
         this.penalty = penalty;
+    }
+
+    @Override
+    public String getUserData() {
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
     }
 }

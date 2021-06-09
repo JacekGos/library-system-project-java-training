@@ -7,44 +7,72 @@ public abstract class User {
     private String userSurName;
     private String login;
     private String password;
+    private int accountType;
 
-    public User(int userId, String userName, String userSurName, String login, String password) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userSurName = userSurName;
-        this.login = login;
-        this.password = password;
+    public User(int userId, String userName, String userSurName, String login, String password, int accountType) {
+        this.setUserId(userId);
+        this.setUserName(userName);
+        this.setUserSurName(userSurName);
+        this.setLogin(login);
+        this.setPassword(password);
+        this.setAccountType(accountType);
+    }
+
+    public User() {
+
     }
 
     public int getUserId() {
         return userId;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getUserName() {
         return userName;
     }
 
-    public void changeUserName(String newUserName) {
-        this.userName = newUserName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getUserSurName() {
         return userSurName;
     }
 
-    public void changeUserSurName(String newUserSurName) {
-        this.userSurName = newUserSurName;
+    public void setUserSurName(String userSurName) {
+        this.userSurName = userSurName;
     }
 
     public String getLogin() {
         return login;
     }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public void changePassword(String newPassword) {
-        this.password = newPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    public int getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(int accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getUserData() {
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
+    }
+
 }
+

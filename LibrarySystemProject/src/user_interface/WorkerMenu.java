@@ -6,7 +6,6 @@ import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
 import data_access.MovieDataAccess;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,7 +58,7 @@ public class WorkerMenu implements MenuHelper{
                 addLibraryElementView(libraryWorker);
                 break;
             case 6:
-                removeLibraryElementView(libraryWorker);
+                deleteLibraryElementView(libraryWorker);
                 break;
             case 7:
                 findLibraryElementView();
@@ -165,18 +164,18 @@ public class WorkerMenu implements MenuHelper{
         WorkerMenu.addLibraryElementView(libraryWorker);
     }
 
-    private static void removeLibraryElementView(){
+    private static void deleteLibraryElementView(LibraryWorker libraryWorker){
         System.out.println("_____________________");
         System.out.println("Usuwanie pozycji bibliotecznej:\n" +
-                "1. Rozpocznij usuwanie konta\n" +
-                "2. Powrót");
+                        "1. Rozpocznij usuwanie pozycji\n" +
+                        "2. Powrót");
         System.out.print("Wybierz opcje: ");
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
 
         switch (choosedOption) {
 
             case 1:
-                userAccountRemover(libraryWorker);
+                libraryElementRemover(libraryWorker);
                 break;
             case 2:
                 showWorkerMenu(libraryWorker);
@@ -186,10 +185,26 @@ public class WorkerMenu implements MenuHelper{
         WorkerMenu.deleteAccountView(libraryWorker);
     }
 
-    }
 
-    private static void findLibraryElementView(){
-        System.out.println("_____________________");
+
+    private static void findLibraryElementView(LibraryWorker libraryWorker){
+
+        System.out.println("Wyszukiwarka pozycji:\n" +
+                        "1. Wyszukaj\n" +
+                        "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                libraryElementSearcher(libraryWorker);
+                break;
+            case 2:
+                showWorkerMenu(libraryWorker);
+                break;
+        }
 
     }
 
@@ -389,7 +404,29 @@ public class WorkerMenu implements MenuHelper{
             WorkerMenu.addLibraryElementView(libraryWorker);
         }
 
-
     }
 
-}
+    public static void libraryElementRemover(LibraryWorker libraryWorker) {
+
+        int libraryElementId = 0;
+        int status = 0;
+
+        System.out.println("_____________________");
+        System.out.println("Usuwanie pozycji: ");
+
+        System.out.print("Podaj id pozycji: ");
+        libraryElementId = MenuHelper.checkChoosedOptionValidation(-1);
+
+        status = BookDataAccess.deleteLibraryElement(libraryElementId);
+
+        if (status > 0) {
+            System.out.printf("Pozycja o id %d została usunięta%n", libraryElementId);
+        } else {
+            System.out.println("Coś poszło nie tak");
+        }
+
+        WorkerMenu.deleteLibraryElementView(libraryWorker);
+        }
+    }
+
+

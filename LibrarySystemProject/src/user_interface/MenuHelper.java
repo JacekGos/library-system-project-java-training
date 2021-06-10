@@ -46,19 +46,17 @@ public interface MenuHelper {
         boolean isCorrect = false;
         int value = 0;
 
-//        System.out.print("Wybierz opcje: ");
-
         while (isCorrect != true){
 
             try{
-                value = myInput.nextByte();
+                value = myInput.nextInt();
             }catch (Exception e){
                 System.out.print("Nieprawidłowa wartość, spróbuj ponownie: ");
                 myInput.nextLine(); //Added because scanner had all the time first introduced value so there was always an exception
                 continue;
             }
 
-            if (value > 0 && value <= amountOfOptions || amountOfOptions == -1){
+            if (value > 0 && value <= amountOfOptions || (amountOfOptions == -1 && value >= 0)){
                 isCorrect = true;
             }else{
                 System.out.print("Nieprawidłowa wartość, spróbuj ponownie: ");

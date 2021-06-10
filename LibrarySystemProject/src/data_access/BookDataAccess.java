@@ -1,5 +1,6 @@
 package data_access;
 
+import classes.Book;
 import classes.LibraryElement;
 import classes.LibraryWorker;
 
@@ -8,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class LibraryElementDataAccess {
+public class BookDataAccess {
 
     public static Connection getConnection() {
 
@@ -28,23 +29,23 @@ public class LibraryElementDataAccess {
 
     }
 
-    public static int insertLibraryElement (LibraryElement libraryElement) {
+    public static int insertBook(Book book) {
 
         int status = 0;
 
-        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Librarian]"
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Library_element]"
+                + "VALUES (?, ?, ?, ?, NULL, ?)";
 
         try {
 
             Connection connection = getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, libraryElement.getUserName());
-            preparedStatement.setString(2, libraryElement.getUserSurName());
-            preparedStatement.setString(3, libraryElement.getLogin());
-            preparedStatement.setString(4, libraryElement.getPassword());
-            preparedStatement.setInt(5, libraryElement.getAccountType());
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setInt(2, book.getTypeId());
+            preparedStatement.setInt(3, book.getSortId());
+            preparedStatement.setInt(4, book.getPagesNumber());
+            preparedStatement.setInt(5, book.getStatusId());
 
             status = preparedStatement.executeUpdate();
 

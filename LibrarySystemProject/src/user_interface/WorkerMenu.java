@@ -1,10 +1,12 @@
 package user_interface;
 
-import classes.LibraryUser;
-import classes.LibraryWorker;
+import classes.*;
+import data_access.BookDataAccess;
 import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
+import data_access.MovieDataAccess;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,11 +31,14 @@ public class WorkerMenu implements MenuHelper{
                             "7. Wyszukaj pozycje\n" +
                             "8. Wyloguj");
         System.out.print("Wybierz opcje: ");
-        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(7);
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(8);
 
         chooseWorkerMenuOption(choosedOption, libraryWorker);
 
     }
+
+
+    //Main menu options
 
     private static void chooseWorkerMenuOption(byte choosedOption, LibraryWorker libraryWorker){
 
@@ -51,13 +56,16 @@ public class WorkerMenu implements MenuHelper{
                 borrowingsView();
                 break;
             case 5:
-                addLibraryElementView();
+                addLibraryElementView(libraryWorker);
                 break;
             case 6:
-                removeLibraryElementView();
+                removeLibraryElementView(libraryWorker);
                 break;
             case 7:
                 findLibraryElementView();
+                break;
+            case 8:
+                MenuHelper.logOnPanel();
                 break;
             default:
                 System.out.println("Błąd!\n ");
@@ -88,6 +96,7 @@ public class WorkerMenu implements MenuHelper{
     }
 
     private static void deleteAccountView(LibraryWorker libraryWorker){
+
         System.out.println("_____________________");
         System.out.println("Usuwanie konta użytkownika:\n" +
                 "1. Rozpocznij usuwanie konta\n" +
@@ -127,9 +136,6 @@ public class WorkerMenu implements MenuHelper{
                 break;
         }
 
-
-
-
     }
 
     private static void borrowingsView(){
@@ -137,13 +143,48 @@ public class WorkerMenu implements MenuHelper{
 
     }
 
-    private static void addLibraryElementView(){
-        System.out.println("_____________________");
+    private static void addLibraryElementView(LibraryWorker libraryWorker){
 
+        System.out.println("_____________________");
+        System.out.println("Dodawanie pozycji bibliotecznej:\n" +
+                "1. Rozpocznij dodawanie\n" +
+                "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                libraryElementCreator(libraryWorker);
+                break;
+            case 2:
+                showWorkerMenu(libraryWorker);
+                break;
+        }
+
+        WorkerMenu.addLibraryElementView(libraryWorker);
     }
 
     private static void removeLibraryElementView(){
         System.out.println("_____________________");
+        System.out.println("Usuwanie pozycji bibliotecznej:\n" +
+                "1. Rozpocznij usuwanie konta\n" +
+                "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                userAccountRemover(libraryWorker);
+                break;
+            case 2:
+                showWorkerMenu(libraryWorker);
+                break;
+        }
+
+        WorkerMenu.deleteAccountView(libraryWorker);
+    }
 
     }
 
@@ -151,6 +192,9 @@ public class WorkerMenu implements MenuHelper{
         System.out.println("_____________________");
 
     }
+
+
+    //Main menu nested options
 
     public static void userAccountCreator(LibraryWorker libraryWorker) {
 
@@ -288,6 +332,64 @@ public class WorkerMenu implements MenuHelper{
         System.out.print("<--- Wciśnij przycisk aby powrócić");
         myInput.nextLine();
         findUserView(libraryWorker);
+    }
+
+    public static void libraryElementCreator(LibraryWorker libraryWorker) {
+
+        int libraryElementType = 0;
+        int libraryElementSort = 0;
+        int bookPagesNumber = 0;
+        int movieDurationTime = 0;
+        int movieDuration = 0;
+        String title = null;
+
+        System.out.println("_____________________");
+        System.out.println("Dodawanie pozycji: ");
+        System.out.print("1. Książka\n" +
+                        "2. Film\n" +
+                        "3. Czasopismo\n");
+        System.out.print("Wybierz opcje: ");
+        libraryElementType = MenuHelper.checkChoosedOptionValidation(3);
+
+        System.out.print("Podaj tytuł: ");
+        title = myInput.nextLine();
+
+        System.out.println("Rodzaj: ");
+        System.out.print("1. Historyczna\n" +
+                        "2. Fantastyka\n" +
+                        "3. Kryminał\n" +
+                        "4. Edukacja\n" +
+                        "5. Technologie\n");
+        System.out.print("Wybierz gatunek: ");
+        libraryElementSort = MenuHelper.checkChoosedOptionValidation(5);
+
+        if (libraryElementType == 1) {
+
+            System.out.print("Podaj liczbe stron: ");
+            bookPagesNumber = MenuHelper.checkChoosedOptionValidation(-1);
+
+            Book bookToCreate = new Book(0, title, libraryElementSort, 1, bookPagesNumber);
+
+            BookDataAccess.insertBook(bookToCreate);
+
+        } else if (libraryElementType == 2) {
+
+            System.out.print("Podaj czas trwania: ");
+            movieDurationTime = MenuHelper.checkChoosedOptionValidation(-1);
+
+            Movie movieToCreate = new Movie(0, title, libraryElementSort, 1, movieDurationTime);
+
+            MovieDataAccess.insertMovie(movieToCreate);
+
+        } else if (libraryElementType == 3) {
+            System.out.println("Opcja chwilowo niedostępna");
+            WorkerMenu.libraryElementCreator(libraryWorker);
+        } else {
+            System.out.println("Nastąpił błąd!");
+            WorkerMenu.addLibraryElementView(libraryWorker);
+        }
+
+
     }
 
 }

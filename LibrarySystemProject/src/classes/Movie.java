@@ -10,6 +10,10 @@ public class Movie extends LibraryElement{
         this.durationTime = durationTime;
     }
 
+    public Movie() {
+
+    }
+
     public int getDurationTime() {
         return durationTime;
     }

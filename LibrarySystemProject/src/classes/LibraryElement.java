@@ -14,6 +14,10 @@ public abstract class LibraryElement {
         this.statusId = statusId;
     }
 
+    public LibraryElement() {
+
+    }
+
     public int getLibraryElementId() {
         return libraryElementId;
     }

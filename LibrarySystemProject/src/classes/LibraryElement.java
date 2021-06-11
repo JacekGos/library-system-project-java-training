@@ -22,12 +22,24 @@ public abstract class LibraryElement {
         return libraryElementId;
     }
 
+    public void setLibraryElementId(int libraryElementId) {
+        this.libraryElementId = libraryElementId;
+    }
+
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public int getSortId() {
         return sortId;
+    }
+
+    public void setSortId(int sortId) {
+        this.sortId = sortId;
     }
 
     public int getStatusId() {
@@ -37,4 +49,6 @@ public abstract class LibraryElement {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+    public abstract String getLibraryElementData();
 }

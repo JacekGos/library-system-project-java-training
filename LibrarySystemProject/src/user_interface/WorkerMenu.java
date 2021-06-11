@@ -61,7 +61,7 @@ public class WorkerMenu implements MenuHelper{
                 deleteLibraryElementView(libraryWorker);
                 break;
             case 7:
-                findLibraryElementView();
+                findLibraryElementView(libraryWorker);
                 break;
             case 8:
                 MenuHelper.logOnPanel();
@@ -426,7 +426,49 @@ public class WorkerMenu implements MenuHelper{
         }
 
         WorkerMenu.deleteLibraryElementView(libraryWorker);
-        }
     }
 
+    public static void libraryElementSearcher(LibraryWorker libraryWorker) {
 
+        List<LibraryElement> libraryElementList = new ArrayList<LibraryElement>();
+        List<Book> bookList = new ArrayList<Book>();
+        List<Movie> movieList = new ArrayList<Movie>();
+
+        String title;
+        String sortName;
+        String durationTime;
+        String numberOfPages;
+        int libraryElementId;
+        int status;
+
+        System.out.println("_____________________");
+        System.out.println("Podaj dane: ");
+
+        System.out.print("Tytuł: ");
+        title = myInput.nextLine();
+
+        System.out.print("Gatunek: ");
+        sortName = myInput.nextLine();
+
+        bookList = BookDataAccess.getAllBooksByTitleAndSort(title, sortName);
+     /*   movieList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId(name, surName, userId);
+        libraryElementList.addAll(bookList);
+        libraryElementList.addAll(movieList);
+
+        System.out.printf("Znaleziono %d wyników%n", (libraryWorkerList.size() + libraryUserList.size()));
+        System.out.println("Id -- Imie -- Nazwisko -- Nazwa użytkownika -- Typ użytkownika");
+
+        for (LibraryWorker libraryWorkerObj : libraryWorkerList) {
+            System.out.println(libraryWorkerObj.getUserData());
+        }
+
+        for (LibraryUser libraryUserObj : libraryUserList) {
+            System.out.println(libraryUserObj.getUserData());
+        }
+
+        System.out.print("<--- Wciśnij przycisk aby powrócić");
+        myInput.nextLine();
+        findUserView(libraryWorker);*/
+    }
+
+}

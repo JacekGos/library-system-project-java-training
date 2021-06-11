@@ -1,6 +1,7 @@
 package com.jacekg;
 
 import classes.*;
+import data_access.BookDataAccess;
 import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
 import user_interface.MenuHelper;
@@ -15,28 +16,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*List<LibraryUser> libraryUserList = new ArrayList<LibraryUser>();
+        List<Book> bookList = new ArrayList<Book>();
 
-        libraryUserList = LibraryUserDataAccess.getAllLibraryUsersByNameSurNameId("Bogdan", " ", 0);
+        //MenuHelper.logOnPanel();
 
-        for (LibraryUser libraryUser : libraryUserList) {
-            System.out.println(libraryUser.getUserData());
-            System.out.println(libraryUser.getAccountType());
-        }*/
+        bookList = BookDataAccess.getAllBooksByTitleAndSort("Harry P" , "Kryminał");
 
-        MenuHelper.logOnPanel();
-
+        for (Book book : bookList) {
+            System.out.println(book.getLibraryElementData());
+        }
 
 
-        //usuwanie
-     /*   for (int i = 12; i < 13; i++) {
-
-            int status = LibraryWorkerDataAccess.deleteLibraryWorker(i);
-
-            if (status > 0) {
-                System.out.println("usuniety id: " + i);
-            }
-        }*/
 
 
 

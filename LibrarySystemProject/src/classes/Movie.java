@@ -25,4 +25,9 @@ public class Movie extends LibraryElement{
     public void setTypeId(byte typeId) {
         this.typeId = typeId;
     }
+
+    @Override
+    public String getLibraryElementData() {
+        return null;
+    }
 }

@@ -2,12 +2,12 @@ package data_access;
 
 import classes.Book;
 import classes.LibraryElement;
+import classes.LibraryUser;
 import classes.LibraryWorker;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookDataAccess {
 
@@ -81,6 +81,45 @@ public class BookDataAccess {
         }
 
         return status;
+    }
+
+    public static List<Book> getAllBooksByTitleAndSort(String title, String sort) {
+
+        List<Book> bookList = new ArrayList<Book>();
+
+        Connection connection = getConnection();
+
+        try {
+
+            String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] AS le" +
+                            " INNER JOIN [LibraryProject_v2].[dbo].[Library_element_sort] AS s ON s.library_element_sort_id = le.sort_id" +
+                            " WHERE title LIKE ?" +
+                            " OR s.sort =  ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, sort);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setLibraryElementId(resultSet.getInt(1));
+                book.setTitle(resultSet.getString(2));
+                book.setSortId(resultSet.getInt(3));
+                book.setStatusId(resultSet.getInt(4));
+                book.setPagesNumber(resultSet.getInt(5));
+
+                bookList.add(book);
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return bookList;
     }
 
 }

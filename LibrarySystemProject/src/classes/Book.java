@@ -18,7 +18,17 @@ public class Book extends LibraryElement{
         return pagesNumber;
     }
 
+    public void setPagesNumber(int pagesNumber) {
+        this.pagesNumber = pagesNumber;
+    }
+
     public int getTypeId() {
         return typeId;
+    }
+
+    @Override
+    public String getLibraryElementData() {
+        return  getLibraryElementId() + " -- " + getTitle() + " -- " + getTypeId() + " -- " + getSortId() + " -- "
+                + getSortId();
     }
 }

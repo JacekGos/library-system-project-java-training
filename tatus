@@ -1,0 +1,77 @@
+[33mcommit d07f927471293f5712b01b6e1a92e998cbd5907e[m[33m ([m[1;36mHEAD -> [m[1;32mLibraryElement[m[33m, [m[1;31morigin/LibraryElement[m[33m)[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Thu Jun 10 09:49:19 2021 +0200
+
+    Added delete library element function
+
+[33mcommit 874d63818f0263fe802b1d20a35c5cdc4c798cdf[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Thu Jun 10 09:26:57 2021 +0200
+
+    Created functios: Adding new Book and Movie
+
+[33mcommit 14dc137170faf47c1377e767862403cbdab4c5ec[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Thu Jun 10 07:35:57 2021 +0200
+
+    Commit to push
+
+[33mcommit 026371a092ad800cd1aad409b3a70b9b948f33c8[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Sun Jun 6 10:50:17 2021 +0200
+
+    Created LibraryElementDataAccess class
+
+[33mcommit df6c645dda8aeebafdfded1f4cb0a95ef663f136[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Sun Jun 6 10:24:56 2021 +0200
+
+    Added in WorkerMenu options with LibraryUser
+
+[33mcommit c4c9c423ee92e0dfe9defba106445fb288f614b3[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Sat Jun 5 13:27:22 2021 +0200
+
+    Created features of LibraryWorker and created LibraryUser data access class
+
+[33mcommit b0c35aa44acf0d2a5ea6d784ab74fb60cdc06fab[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Sat Jun 5 10:52:30 2021 +0200
+
+    Added create new worker account and generate proper login
+
+[33mcommit 4d63208f2dc626b316e121ca9220ae5e7948bc98[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Sat Jun 5 08:26:39 2021 +0200
+
+    Creating log in function
+
+[33mcommit 4ee105592b8cb6821ddeb690223f99d763afaab0[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Fri Jun 4 17:00:40 2021 +0200
+
+    Added basic sql queries for LibraryWorker
+
+[33mcommit 2a51a48f2b3adb21686e614a7b74ca237180ef2e[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Fri Jun 4 16:10:28 2021 +0200
+
+    Added LibraryWorkerDataAccess class
+
+[33mcommit a3eb4076ec60d822ea9d9117ac5b924c77b627b7[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Fri Jun 4 08:07:27 2021 +0200
+
+    Added insert method
+
+[33mcommit 54a0f41eadc6a2c13ee80ad8d959743151449079[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Thu Jun 3 16:46:49 2021 +0200
+
+    Set up communication with Sql Server db
+
+[33mcommit 697053f1552b14d924c3ce2b9a529cde883ae61f[m
+Author: jacekg93 <jacekg93@gmail.com>
+Date:   Thu Jun 3 08:24:23 2021 +0200
+
+    Initial commit

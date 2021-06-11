@@ -451,24 +451,25 @@ public class WorkerMenu implements MenuHelper{
         sortName = myInput.nextLine();
 
         bookList = BookDataAccess.getAllBooksByTitleAndSort(title, sortName);
-     /*   movieList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId(name, surName, userId);
+        movieList = MovieDataAccess.getAllMoviesByTitleAndSort(title, sortName);
+
         libraryElementList.addAll(bookList);
         libraryElementList.addAll(movieList);
 
-        System.out.printf("Znaleziono %d wyników%n", (libraryWorkerList.size() + libraryUserList.size()));
-        System.out.println("Id -- Imie -- Nazwisko -- Nazwa użytkownika -- Typ użytkownika");
+        System.out.printf("Znaleziono %d wyników%n", (libraryElementList.size()));
+        System.out.println("Id -- Tytuł -- Typ -- Gatunek -- Liczba stron / czas trwania -- Status ");
 
-        for (LibraryWorker libraryWorkerObj : libraryWorkerList) {
-            System.out.println(libraryWorkerObj.getUserData());
-        }
-
-        for (LibraryUser libraryUserObj : libraryUserList) {
-            System.out.println(libraryUserObj.getUserData());
+        for (LibraryElement libraryElementObj : libraryElementList) {
+            System.out.println(libraryElementObj.getLibraryElementData());
         }
 
         System.out.print("<--- Wciśnij przycisk aby powrócić");
         myInput.nextLine();
-        findUserView(libraryWorker);*/
+        findLibraryElementView(libraryWorker);
+    }
+
+    public enum sortName {
+        
     }
 
 }

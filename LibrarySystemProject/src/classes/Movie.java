@@ -18,6 +18,10 @@ public class Movie extends LibraryElement{
         return durationTime;
     }
 
+    public void setDurationTime(int durationTime) {
+        this.durationTime = durationTime;
+    }
+
     public byte getTypeId() {
         return typeId;
     }
@@ -28,6 +32,7 @@ public class Movie extends LibraryElement{
 
     @Override
     public String getLibraryElementData() {
-        return null;
+        return  getLibraryElementId() + " -- " + getTitle() + " -- " + getTypeId() + " -- " + getSortId() + " -- "
+                + getDurationTime() + " -- " + getStatusId();
     }
 }

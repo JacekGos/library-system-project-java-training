@@ -16,16 +16,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<Book> bookList = new ArrayList<Book>();
+        MenuHelper.logOnPanel();
 
-        //MenuHelper.logOnPanel();
 
+
+     /*   List<Book> bookList = new ArrayList<Book>();
         bookList = BookDataAccess.getAllBooksByTitleAndSort("Harry P" , "Kryminał");
 
         for (Book book : bookList) {
             System.out.println(book.getLibraryElementData());
         }
-
+*/
 
 
 

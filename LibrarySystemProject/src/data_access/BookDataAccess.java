@@ -87,6 +87,9 @@ public class BookDataAccess {
 
         List<Book> bookList = new ArrayList<Book>();
 
+        title = "%" + title + "%";
+        sort = "%" + sort + "%";
+
         Connection connection = getConnection();
 
         try {
@@ -94,7 +97,7 @@ public class BookDataAccess {
             String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] AS le" +
                             " INNER JOIN [LibraryProject_v2].[dbo].[Library_element_sort] AS s ON s.library_element_sort_id = le.sort_id" +
                             " WHERE title LIKE ?" +
-                            " OR s.sort =  ?";
+                            " OR s.sort LIKE  ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, title);

@@ -5,10 +5,9 @@ import classes.Movie;
 import classes.LibraryElement;
 import classes.LibraryWorker;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MovieDataAccess {
@@ -60,5 +59,46 @@ public class MovieDataAccess {
         return status;
     }
 
+    public static List<Movie> getAllMoviesByTitleAndSort(String title, String sort) {
+
+        List<Movie> movieList = new ArrayList<Movie>();
+
+        title = "%" + title + "%";
+        sort = "%" + sort + "%";
+
+        Connection connection = getConnection();
+
+        try {
+
+            String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] AS le" +
+                            " INNER JOIN [LibraryProject_v2].[dbo].[Library_element_sort] AS s ON s.library_element_sort_id = le.sort_id" +
+                            " WHERE title LIKE ?" +
+                            " OR s.sort LIKE ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, sort);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                movie.setLibraryElementId(resultSet.getInt(1));
+                movie.setTitle(resultSet.getString(2));
+                movie.setSortId(resultSet.getInt(3));
+                movie.setStatusId(resultSet.getInt(4));
+                movie.setDurationTime(resultSet.getInt(5));
+
+                movieList.add(movie);
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return movieList;
+    }
 
 }

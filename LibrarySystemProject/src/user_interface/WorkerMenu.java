@@ -12,10 +12,10 @@ import java.util.Scanner;
 
 public class WorkerMenu implements MenuHelper{
 
-
-
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
+
+    private WorkerMenu() {}
 
     public static void showWorkerMenu(LibraryWorker libraryWorker){
         System.out.println("_____________________");
@@ -35,7 +35,6 @@ public class WorkerMenu implements MenuHelper{
         chooseWorkerMenuOption(choosedOption, libraryWorker);
 
     }
-
 
     //Main menu options
 
@@ -471,7 +470,5 @@ public class WorkerMenu implements MenuHelper{
         myInput.nextLine();
         findLibraryElementView(libraryWorker);
     }
-
-
 
 }

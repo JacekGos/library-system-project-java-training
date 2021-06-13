@@ -1,6 +1,9 @@
 package user_interface;
 
+import classes.LibraryUser;
 import classes.LibraryWorker;
+import classes.User;
+import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
 
 import java.util.Objects;
@@ -28,17 +31,31 @@ public interface MenuHelper {
 
         LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
 
-        System.out.println(libraryWorker.getPassword() == null);
-
-        if (libraryWorker.getPassword() != null) {
-            if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
+        if (libraryWorker.getLogin().equals(login) && libraryWorker.getPassword().equals(password)) {
+            if (libraryWorker.getAccountType() == 1) {
                 WorkerMenu.showWorkerMenu(libraryWorker);
+            } else if (libraryWorker.getAccountType() == 2) {
+                LibraryUser libraryUser = LibraryUserDataAccess.getLibraryUserByLogin(login);
             }
-        } else if (libraryWorker.getUserId() != 0) {
-            System.out.println("Szukanie konta typu LibraryUser");
+
+        } else if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
+
         }
 
+       /* if (libraryWorker.getPassword() != null) {
 
+        } else if (libraryWorker.getUserId() != 0) {
+            System.out.println("Szukanie konta typu LibraryUser");
+        }*/
+
+
+    }
+
+    static boolean checkAccountValidation(User user) {
+
+
+
+        return false;
     }
 
     static int checkChoosedOptionValidation(int amountOfOptions){

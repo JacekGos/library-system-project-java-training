@@ -29,18 +29,42 @@ public interface MenuHelper {
         System.out.print("Password: ");
         password = myInput.next();
 
-        LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
+        User user = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
 
-        if (libraryWorker.getLogin().equals(login) && libraryWorker.getPassword().equals(password)) {
+        if (checkAccountValidation(user, login, password) == true) {
+            if (user.getAccountType() == 1) {
+
+                LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
+                WorkerMenu.showWorkerMenu(libraryWorker);
+
+            } else if (user.getAccountType() == 2) {
+
+                LibraryUser libraryUser = LibraryUserDataAccess.getLibraryUserByLogin(login);
+                UserMenu.showUserMenu(libraryUser);
+
+            } else {
+
+                System.out.println("Nieprawidłowe dane");
+                MenuHelper.logOnPanel();
+
+            }
+        } else {
+
+            System.out.println("Nieprawidłowe dane");
+            MenuHelper.logOnPanel();
+
+        }
+
+        /*if (libraryWorker.getLogin().equals(login) && libraryWorker.getPassword().equals(password)) {
             if (libraryWorker.getAccountType() == 1) {
                 WorkerMenu.showWorkerMenu(libraryWorker);
             } else if (libraryWorker.getAccountType() == 2) {
-                LibraryUser libraryUser = LibraryUserDataAccess.getLibraryUserByLogin(login);
+                LibraryUser user = LibraryUserDataAccess.getLibraryUserByLogin(login);
             }
 
         } else if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
 
-        }
+        }*/
 
        /* if (libraryWorker.getPassword() != null) {
 
@@ -51,10 +75,15 @@ public interface MenuHelper {
 
     }
 
-    static boolean checkAccountValidation(User user) {
+    static boolean checkAccountValidation(User user, String login, String password) {
 
+        if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
 
+            System.out.println(user.getLogin());
+            System.out.println(user.getPassword());
 
+            return true;
+        }
         return false;
     }
 

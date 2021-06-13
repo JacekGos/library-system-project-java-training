@@ -441,6 +441,8 @@ public class WorkerMenu implements MenuHelper{
         int libraryElementId;
         int status;
 
+        String statusStringFormat = null;
+
         System.out.println("_____________________");
         System.out.println("Podaj dane: ");
 
@@ -460,7 +462,9 @@ public class WorkerMenu implements MenuHelper{
         System.out.println("Id -- Tytuł -- Typ -- Gatunek -- Liczba stron / czas trwania -- Status ");
 
         for (LibraryElement libraryElementObj : libraryElementList) {
+
             System.out.println(libraryElementObj.getLibraryElementData());
+
         }
 
         System.out.print("<--- Wciśnij przycisk aby powrócić");
@@ -468,8 +472,6 @@ public class WorkerMenu implements MenuHelper{
         findLibraryElementView(libraryWorker);
     }
 
-    public enum sortName {
-        
-    }
+
 
 }

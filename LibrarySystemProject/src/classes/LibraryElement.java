@@ -1,6 +1,6 @@
 package classes;
 
-public abstract class LibraryElement {
+public abstract class LibraryElement implements DataDisplayHelper{
 
     private int libraryElementId;
     private String title;

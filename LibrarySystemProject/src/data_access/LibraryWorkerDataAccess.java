@@ -15,9 +15,8 @@ public class LibraryWorkerDataAccess {
             Connection connection = null;
 
             try {
-                connection = DriverManager.getConnection(urlConnection);
 
-                System.out.println("Connected to data base");
+                connection = DriverManager.getConnection(urlConnection);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

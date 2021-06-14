@@ -13,14 +13,14 @@ public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
-    /*
-    Finish it when LibraryUser connection to db will be created
-     */
     static void logOnPanel() {
+
+        boolean userDataNotNull = false;
 
         String login = null;
         String password = null;
 
+        System.out.println("_____________________");
         System.out.println("Witaj!");
 
         System.out.print("Login: ");
@@ -29,17 +29,27 @@ public interface MenuHelper {
         System.out.print("Password: ");
         password = myInput.next();
 
-        User user = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
 
-        if (checkAccountValidation(user, login, password) == true) {
-            if (user.getAccountType() == 1) {
+        LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
 
-                LibraryWorker libraryWorker = LibraryWorkerDataAccess.getLibraryWorkerByLogin(login);
-                WorkerMenu.showWorkerMenu(libraryWorker);
+        try {
+            userDataNotNull = checkAccountValidation(libraryWorker, login, password, 1);
+        } catch (NullPointerException e) { }
 
-            } else if (user.getAccountType() == 2) {
+        if ( userDataNotNull == true) {
 
-                LibraryUser libraryUser = LibraryUserDataAccess.getLibraryUserByLogin(login);
+            WorkerMenu.showWorkerMenu(libraryWorker);
+
+        } else if (userDataNotNull == false) {
+
+            LibraryUser libraryUser = LibraryUserDataAccess.getLibraryUserByLogin(login);
+
+            try {
+                userDataNotNull = checkAccountValidation(libraryUser, login, password, 2);
+            } catch (NullPointerException e) { }
+
+            if (userDataNotNull == true) {
+
                 UserMenu.showUserMenu(libraryUser);
 
             } else {
@@ -48,6 +58,7 @@ public interface MenuHelper {
                 MenuHelper.logOnPanel();
 
             }
+
         } else {
 
             System.out.println("Nieprawidłowe dane");
@@ -55,37 +66,16 @@ public interface MenuHelper {
 
         }
 
-        /*if (libraryWorker.getLogin().equals(login) && libraryWorker.getPassword().equals(password)) {
-            if (libraryWorker.getAccountType() == 1) {
-                WorkerMenu.showWorkerMenu(libraryWorker);
-            } else if (libraryWorker.getAccountType() == 2) {
-                LibraryUser user = LibraryUserDataAccess.getLibraryUserByLogin(login);
-            }
-
-        } else if (libraryWorker.getPassword().equals(password) && libraryWorker.getAccountType() == 1) {
-
-        }*/
-
-       /* if (libraryWorker.getPassword() != null) {
-
-        } else if (libraryWorker.getUserId() != 0) {
-            System.out.println("Szukanie konta typu LibraryUser");
-        }*/
-
-
     }
 
-    static boolean checkAccountValidation(User user, String login, String password) {
+    static boolean checkAccountValidation(User user, String login, String password, int accountType) {
 
-        if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+        if (user.getLogin().equals(login) && user.getPassword().equals(password) && user.getAccountType() == accountType) { return true; }
 
-            System.out.println(user.getLogin());
-            System.out.println(user.getPassword());
-
-            return true;
-        }
         return false;
     }
+
+
 
     static int checkChoosedOptionValidation(int amountOfOptions){
 

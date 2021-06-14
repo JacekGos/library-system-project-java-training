@@ -25,7 +25,7 @@ public final class UserMenu implements MenuHelper {
                             "5. Wyloguj");
         System.out.print("Wybierz opcje: ");
 
-        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(4);
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(5);
 
         chooseUserMenuOption(choosedOption, libraryUser);
 
@@ -44,6 +44,9 @@ public final class UserMenu implements MenuHelper {
                 break;
             case 4:
                 userBorrowingsView();
+                break;
+            case 5:
+                MenuHelper.logOnPanel();
                 break;
             default:
                 System.out.println("Błąd!\n ");

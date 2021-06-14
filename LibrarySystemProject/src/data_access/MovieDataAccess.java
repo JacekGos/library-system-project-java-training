@@ -82,14 +82,23 @@ public class MovieDataAccess {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Movie movie = new Movie();
-                movie.setLibraryElementId(resultSet.getInt(1));
-                movie.setTitle(resultSet.getString(2));
-                movie.setSortId(resultSet.getInt(3));
-                movie.setStatusId(resultSet.getInt(4));
-                movie.setDurationTime(resultSet.getInt(5));
 
-                movieList.add(movie);
+                byte checkType = resultSet.getByte(3);
+
+                if (checkType == 2) {
+
+                    Movie movie = new Movie();
+                    movie.setLibraryElementId(resultSet.getInt(1));
+                    movie.setTitle(resultSet.getString(2));
+                    movie.setTypeId(resultSet.getByte(3));
+                    movie.setSortId(resultSet.getInt(4));
+                    movie.setDurationTime(resultSet.getInt(6));
+                    movie.setStatusId(resultSet.getByte(7));
+
+                    movieList.add(movie);
+
+                }
+
             }
 
             connection.close();

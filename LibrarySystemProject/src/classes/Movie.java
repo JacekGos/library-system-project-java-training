@@ -2,11 +2,10 @@ package classes;
 
 public class Movie extends LibraryElement{
 
-    private byte typeId = 2;
     private int durationTime;
 
-    public Movie(int libraryElementId, String title, int sortId, int statusId, int durationTime) {
-        super(libraryElementId, title, sortId, statusId);
+    public Movie(int libraryElementId, byte typeId, String title, int sortId, int statusId, int durationTime) {
+        super(libraryElementId, typeId, title, sortId, statusId);
         this.durationTime = durationTime;
     }
 
@@ -20,14 +19,6 @@ public class Movie extends LibraryElement{
 
     public void setDurationTime(int durationTime) {
         this.durationTime = durationTime;
-    }
-
-    public byte getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(byte typeId) {
-        this.typeId = typeId;
     }
 
     @Override

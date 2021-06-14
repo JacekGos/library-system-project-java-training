@@ -3,15 +3,19 @@ package classes;
 public abstract class LibraryElement implements DataDisplayHelper{
 
     private int libraryElementId;
+    private byte typeId;
     private String title;
     private int sortId;
     private int statusId;
 
-    public LibraryElement(int libraryElementId, String title, int sortId, int statusId) {
+    public LibraryElement(int libraryElementId, byte typeId, String title, int sortId, int statusId) {
+
         this.libraryElementId = libraryElementId;
+        this.typeId = typeId;
         this.title = title;
         this.sortId = sortId;
         this.statusId = statusId;
+
     }
 
     public LibraryElement() {
@@ -48,6 +52,14 @@ public abstract class LibraryElement implements DataDisplayHelper{
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
+    }
+
+    public byte getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(byte typeId) {
+        this.typeId = typeId;
     }
 
     public abstract String getLibraryElementData();

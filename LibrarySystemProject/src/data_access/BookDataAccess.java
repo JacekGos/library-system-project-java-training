@@ -106,14 +106,21 @@ public class BookDataAccess {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Book book = new Book();
-                book.setLibraryElementId(resultSet.getInt(1));
-                book.setTitle(resultSet.getString(2));
-                book.setSortId(resultSet.getInt(3));
-                book.setStatusId(resultSet.getInt(4));
-                book.setPagesNumber(resultSet.getInt(5));
 
-                bookList.add(book);
+                byte checkType = resultSet.getByte(3);
+
+                if (checkType == 1) {
+                    Book book = new Book();
+                    book.setLibraryElementId(resultSet.getInt(1));
+                    book.setTitle(resultSet.getString(2));
+                    book.setTypeId(resultSet.getByte(3));
+                    book.setSortId(resultSet.getInt(4));
+                    book.setPagesNumber(resultSet.getInt(5));
+                    book.setStatusId(resultSet.getInt(7));
+
+                    bookList.add(book);
+                }
+
             }
 
             connection.close();

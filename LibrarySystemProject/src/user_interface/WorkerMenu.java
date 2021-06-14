@@ -382,7 +382,7 @@ public class WorkerMenu implements MenuHelper{
             System.out.print("Podaj liczbe stron: ");
             bookPagesNumber = MenuHelper.checkChoosedOptionValidation(-1);
 
-            Book bookToCreate = new Book(0, title, libraryElementSort, 1, bookPagesNumber);
+            Book bookToCreate = new Book(0, (byte) 1, title, libraryElementSort, 1, bookPagesNumber);
 
             BookDataAccess.insertBook(bookToCreate);
 
@@ -391,7 +391,7 @@ public class WorkerMenu implements MenuHelper{
             System.out.print("Podaj czas trwania: ");
             movieDurationTime = MenuHelper.checkChoosedOptionValidation(-1);
 
-            Movie movieToCreate = new Movie(0, title, libraryElementSort, 1, movieDurationTime);
+            Movie movieToCreate = new Movie(0, (byte) 2, title, libraryElementSort, 1, movieDurationTime);
 
             MovieDataAccess.insertMovie(movieToCreate);
 

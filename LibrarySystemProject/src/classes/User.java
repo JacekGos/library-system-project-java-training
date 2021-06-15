@@ -10,12 +10,14 @@ public abstract class User {
     private int accountType;
 
     public User(int userId, String userName, String userSurName, String login, String password, int accountType) {
+
         this.setUserId(userId);
         this.setUserName(userName);
         this.setUserSurName(userSurName);
         this.setLogin(login);
         this.setPassword(password);
         this.setAccountType(accountType);
+
     }
 
     public User() {

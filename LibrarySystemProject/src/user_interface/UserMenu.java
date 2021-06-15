@@ -2,16 +2,23 @@ package user_interface;
 
 import classes.*;
 import data_access.BookDataAccess;
+import data_access.BorrowingDataAccess;
 import data_access.MovieDataAccess;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
 
 public final class UserMenu implements MenuHelper {
 
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
+
+    private static String datePattern = "dd-MM-yyyy hh:mm";
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
 
     private UserMenu(){}
 
@@ -154,9 +161,10 @@ public final class UserMenu implements MenuHelper {
 
         Book book = new Book();
         Movie movie = new Movie();
-
         int libraryElementId = -1;
         int updateStatus = 0;
+        String borrowingDate = null;
+
 
         System.out.println("_____________________");
         System.out.print("Podaj id pozycji: ");
@@ -170,7 +178,11 @@ public final class UserMenu implements MenuHelper {
 
             if (updateStatus > 0) {
 
-                System.out.println(book.getTitle() + " status: oczukująca\nUdaj się do punktu wypożyceń");
+                borrowingDate = simpleDateFormat.format(new Date());
+
+                libraryUser.addBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
 
             }
 
@@ -186,7 +198,7 @@ public final class UserMenu implements MenuHelper {
 
                 if (updateStatus > 0) {
 
-                    System.out.println(book.getTitle() + " status: oczukująca\nUdaj się do punktu wypożyceń");
+                    System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
 
                 }
 

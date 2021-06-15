@@ -1,14 +1,15 @@
 package data_access;
 
-import classes.Book;
-import classes.Request;
+import classes.LibraryUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RequestDataAccess {
+
+
+public class BorrowingDataAccess {
 
     public static Connection getConnection() {
 
@@ -27,24 +28,23 @@ public class RequestDataAccess {
         return connection;
 
     }
-    //First create borrowing logic
-    /*public static int insertRequest(Request request) {
+
+    public static int insertBorrowing(int libraryElementId, String borrowingDate, int borrowingStatusId, int libraryUserId) {
 
         int status = 0;
 
-        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Library_element]"
-                + "VALUES (?, ?, ?, ?, NULL, ?)";
+        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Borrowings]"
+                + "VALUES (?, ?, ?, ?)";
 
         try {
 
             Connection connection = getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setInt(2, book.getTypeId());
-            preparedStatement.setInt(3, book.getSortId());
-            preparedStatement.setInt(4, book.getPagesNumber());
-            preparedStatement.setInt(5, book.getStatusId());
+            preparedStatement.setInt(1, libraryElementId);
+            preparedStatement.setString(2, borrowingDate);
+            preparedStatement.setInt(3, borrowingStatusId);
+            preparedStatement.setInt(4, libraryUserId);
 
             status = preparedStatement.executeUpdate();
 
@@ -55,5 +55,6 @@ public class RequestDataAccess {
         }
 
         return status;
-    }*/
+    }
+
 }

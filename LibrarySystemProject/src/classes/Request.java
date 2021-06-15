@@ -4,9 +4,6 @@ import java.text.SimpleDateFormat;
 
 public class Request {
 
-    private static String datePattern = "dd-MM-yyyy hh:mm";
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-
     private int requestId;
     private int borrowingId;
     private String requestDate;

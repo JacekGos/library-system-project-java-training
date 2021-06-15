@@ -110,4 +110,38 @@ public class MovieDataAccess {
         return movieList;
     }
 
+    public static Movie getMovieById(int movieId) {
+
+        Movie movie = new Movie();
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, movieId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()) {
+
+                movie.setLibraryElementId(resultSet.getInt(1));
+                movie.setTitle(resultSet.getString(2));
+                movie.setTypeId(resultSet.getByte(3));
+                movie.setSortId(resultSet.getInt(4));
+                movie.setDurationTime(resultSet.getInt(6));
+                movie.setStatusId(resultSet.getInt(7));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return movie;
+
+    }
+
+
 }

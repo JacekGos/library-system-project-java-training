@@ -10,25 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class WorkerMenu implements MenuHelper{
+public class WorkerMenu implements MenuHelper {
 
-    private static Scanner myInput = new Scanner( System.in );
+    private static Scanner myInput = new Scanner(System.in);
     private static byte choosedOption = 0;
 
-    private WorkerMenu() {}
+    private WorkerMenu() {
+    }
 
-    public static void showWorkerMenu(LibraryWorker libraryWorker){
+    public static void showWorkerMenu(LibraryWorker libraryWorker) {
         System.out.println("_____________________");
         System.out.println("Witaj " + libraryWorker.getUserName());
         System.out.println("Menu główne: ");
         System.out.println("1. Stwórz nowe konto\n" +
-                            "2. Usuń konto\n" +
-                            "3. Wyszukaj użytkownika\n" +
-                            "4. Wypożyczenia\n" +
-                            "5. Dodaj pozycje\n" +
-                            "6. Usuń pozycje\n" +
-                            "7. Wyszukaj pozycje\n" +
-                            "8. Wyloguj");
+                "2. Usuń konto\n" +
+                "3. Wyszukaj użytkownika\n" +
+                "4. Wypożyczenia\n" +
+                "5. Dodaj pozycje\n" +
+                "6. Usuń pozycje\n" +
+                "7. Wyszukaj pozycje\n" +
+                "8. Wyloguj");
         System.out.print("Wybierz opcje: ");
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(8);
 
@@ -38,9 +39,9 @@ public class WorkerMenu implements MenuHelper{
 
     //Main menu options
 
-    private static void chooseWorkerMenuOption(byte choosedOption, LibraryWorker libraryWorker){
+    private static void chooseWorkerMenuOption(byte choosedOption, LibraryWorker libraryWorker) {
 
-        switch (choosedOption){
+        switch (choosedOption) {
             case 1:
                 createAccountView(libraryWorker);
                 break;
@@ -71,7 +72,7 @@ public class WorkerMenu implements MenuHelper{
         }
     }
 
-    private static void createAccountView(LibraryWorker libraryWorker){
+    private static void createAccountView(LibraryWorker libraryWorker) {
         System.out.println("_____________________");
         System.out.println("Tworzenie konta użytkownika:\n" +
                 "1. Rozpocznij kreator konta\n" +
@@ -93,7 +94,7 @@ public class WorkerMenu implements MenuHelper{
 
     }
 
-    private static void deleteAccountView(LibraryWorker libraryWorker){
+    private static void deleteAccountView(LibraryWorker libraryWorker) {
 
         System.out.println("_____________________");
         System.out.println("Usuwanie konta użytkownika:\n" +
@@ -115,7 +116,7 @@ public class WorkerMenu implements MenuHelper{
         WorkerMenu.deleteAccountView(libraryWorker);
     }
 
-    private static void findUserView(LibraryWorker libraryWorker){
+    private static void findUserView(LibraryWorker libraryWorker) {
 
         System.out.println("Wyszukiwarka użytkowników:\n" +
                 "1. Wyszukaj użytkownika\n" +
@@ -136,12 +137,12 @@ public class WorkerMenu implements MenuHelper{
 
     }
 
-    private static void borrowingsView(){
+    private static void borrowingsView() {
         System.out.println("_____________________");
 
     }
 
-    private static void addLibraryElementView(LibraryWorker libraryWorker){
+    private static void addLibraryElementView(LibraryWorker libraryWorker) {
 
         System.out.println("_____________________");
         System.out.println("Dodawanie pozycji bibliotecznej:\n" +
@@ -163,11 +164,11 @@ public class WorkerMenu implements MenuHelper{
         WorkerMenu.addLibraryElementView(libraryWorker);
     }
 
-    private static void deleteLibraryElementView(LibraryWorker libraryWorker){
+    private static void deleteLibraryElementView(LibraryWorker libraryWorker) {
         System.out.println("_____________________");
         System.out.println("Usuwanie pozycji bibliotecznej:\n" +
-                        "1. Rozpocznij usuwanie pozycji\n" +
-                        "2. Powrót");
+                "1. Rozpocznij usuwanie pozycji\n" +
+                "2. Powrót");
         System.out.print("Wybierz opcje: ");
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
 
@@ -185,12 +186,11 @@ public class WorkerMenu implements MenuHelper{
     }
 
 
-
-    private static void findLibraryElementView(LibraryWorker libraryWorker){
+    private static void findLibraryElementView(LibraryWorker libraryWorker) {
 
         System.out.println("Wyszukiwarka pozycji:\n" +
-                        "1. Wyszukaj\n" +
-                        "2. Powrót");
+                "1. Wyszukaj\n" +
+                "2. Powrót");
         System.out.print("Wybierz opcje: ");
 
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
@@ -220,7 +220,7 @@ public class WorkerMenu implements MenuHelper{
         System.out.println("_____________________");
         System.out.println("Kreator konta: ");
         System.out.print("1. Pracownik\n" +
-                        "2. Użytkownik\n");
+                "2. Użytkownik\n");
         System.out.print("Wybierz opcje: ");
         accountType = MenuHelper.checkChoosedOptionValidation(2);
 
@@ -272,7 +272,7 @@ public class WorkerMenu implements MenuHelper{
         System.out.println("_____________________");
         System.out.println("Usuwanie konta: ");
         System.out.print("1. Pracownik\n" +
-                        "2. Użytkownik\n");
+                "2. Użytkownik\n");
         System.out.print("Wybierz opcje: ");
         accountType = MenuHelper.checkChoosedOptionValidation(2);
 
@@ -328,7 +328,6 @@ public class WorkerMenu implements MenuHelper{
         userId = MenuHelper.checkChoosedOptionValidation(-1);
 
 
-
         libraryWorkerList = LibraryWorkerDataAccess.getAllLibraryWorkerByNameSurNameId(name, surName, userId);
         libraryUserList = LibraryUserDataAccess.getAllLibraryUsersByNameSurNameId(name, surName, userId);
 
@@ -360,8 +359,8 @@ public class WorkerMenu implements MenuHelper{
         System.out.println("_____________________");
         System.out.println("Dodawanie pozycji: ");
         System.out.print("1. Książka\n" +
-                        "2. Film\n" +
-                        "3. Czasopismo\n");
+                "2. Film\n" +
+                "3. Czasopismo\n");
         System.out.print("Wybierz opcje: ");
         libraryElementType = MenuHelper.checkChoosedOptionValidation(3);
 
@@ -370,10 +369,10 @@ public class WorkerMenu implements MenuHelper{
 
         System.out.println("Rodzaj: ");
         System.out.print("1. Historyczna\n" +
-                        "2. Fantastyka\n" +
-                        "3. Kryminał\n" +
-                        "4. Edukacja\n" +
-                        "5. Technologie\n");
+                "2. Fantastyka\n" +
+                "3. Kryminał\n" +
+                "4. Edukacja\n" +
+                "5. Technologie\n");
         System.out.print("Wybierz gatunek: ");
         libraryElementSort = MenuHelper.checkChoosedOptionValidation(5);
 

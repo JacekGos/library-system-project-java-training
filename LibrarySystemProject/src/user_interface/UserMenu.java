@@ -37,7 +37,7 @@ public final class UserMenu implements MenuHelper {
                 findLibraryElementView(libraryUser);
                 break;
             case 2:
-                borrowingView();
+                borrowingView(libraryUser);
                 break;
             case 3:
                 returningView();
@@ -74,8 +74,26 @@ public final class UserMenu implements MenuHelper {
 
     }
 
-    private static void borrowingView(){
-        System.out.printf("Wypożyczalnia:\n ");
+    private static void borrowingView(LibraryUser libraryUser){
+
+        System.out.println("_____________________");
+        System.out.println("Wypożyczalnia:\n" +
+                        "1. Rozpocznij\n" +
+                        "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                libraryElementBorrowing(libraryUser);
+                break;
+            case 2:
+                showUserMenu(libraryUser);
+                break;
+        }
+
     }
 
     private static void returningView(){
@@ -130,6 +148,42 @@ public final class UserMenu implements MenuHelper {
         System.out.print("<--- Wciśnij przycisk aby powrócić");
         myInput.nextLine();
         findLibraryElementView(libraryUser);
+    }
+
+    public static void libraryElementBorrowing(LibraryUser libraryUser) {
+
+        Book book = new Book();
+        Movie movie = new Movie();
+
+        int libraryElementId = -1;
+
+        System.out.println("_____________________");
+        System.out.print("Podaj id pozycji: ");
+        libraryElementId = MenuHelper.checkChoosedOptionValidation(-1);
+
+        book = BookDataAccess.getBookById(libraryElementId);
+
+        if (book.getTypeId() == 1 && book.getStatusId() == 1) {
+
+            System.out.println("Ksiazka dostepna");
+            borrowingView(libraryUser);
+
+        } else {
+
+            movie = MovieDataAccess.getMovieById(libraryElementId);
+
+            if (movie.getTypeId() == 2 && movie.getStatusId() == 1) {
+
+                System.out.println("Film dostepny");
+                borrowingView(libraryUser);
+
+            }
+
+        }
+
+        System.out.println("Poyzcja niedostępna");
+        borrowingView(libraryUser);
+
     }
 
 }

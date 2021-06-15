@@ -132,4 +132,43 @@ public class BookDataAccess {
         return bookList;
     }
 
+    public static Book getBookById(int bookId) {
+
+        Book book = new Book();
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, bookId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()) {
+
+                book.setLibraryElementId(resultSet.getInt(1));
+                book.setTitle(resultSet.getString(2));
+                book.setTypeId(resultSet.getByte(3));
+                book.setSortId(resultSet.getInt(4));
+                book.setPagesNumber(resultSet.getInt(5));
+                book.setStatusId(resultSet.getInt(7));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return book;
+
+    }
+
+
+    public static boolean updateBookStatus(int bookId) {
+
+        return false;
+    }
+
 }

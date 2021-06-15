@@ -4,6 +4,7 @@ import classes.*;
 import data_access.BookDataAccess;
 import data_access.LibraryUserDataAccess;
 import data_access.LibraryWorkerDataAccess;
+import data_access.MovieDataAccess;
 import user_interface.MenuHelper;
 import user_interface.UserMenu;
 import user_interface.WorkerMenu;
@@ -18,15 +19,6 @@ public class Main {
 
         MenuHelper.logOnPanel();
 
-
-
-     /*   List<Book> bookList = new ArrayList<Book>();
-        bookList = BookDataAccess.getAllBooksByTitleAndSort("Harry P" , "Kryminał");
-
-        for (Book book : bookList) {
-            System.out.println(book.getLibraryElementData());
-        }
-*/
 
 
 

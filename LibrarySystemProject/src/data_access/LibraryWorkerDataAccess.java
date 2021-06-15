@@ -86,30 +86,6 @@ public class LibraryWorkerDataAccess {
 
         }
 
-        public static int deleteLibraryWorker(int libraryWorkerId) {
-
-            int status = 0;
-
-            try {
-
-                Connection connection = getConnection();
-
-                String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Librarian] WHERE librarian_id = ?";
-
-                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-                preparedStatement.setInt(1, libraryWorkerId);
-
-                status = preparedStatement.executeUpdate();
-
-                connection.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-            return status;
-        }
-
         public static LibraryWorker getLibraryWorkerById(int libraryWorkerId) {
 
             LibraryWorker libraryWorker = new LibraryWorker();
@@ -290,4 +266,29 @@ public class LibraryWorkerDataAccess {
 
         return libraryWorkerList;
     }
+
+    public static int deleteLibraryWorker(int libraryWorkerId) {
+
+        int status = 0;
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Librarian] WHERE librarian_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, libraryWorkerId);
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+    }
+
 }

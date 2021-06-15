@@ -156,6 +156,7 @@ public final class UserMenu implements MenuHelper {
         Movie movie = new Movie();
 
         int libraryElementId = -1;
+        int updateStatus = 0;
 
         System.out.println("_____________________");
         System.out.print("Podaj id pozycji: ");
@@ -165,7 +166,14 @@ public final class UserMenu implements MenuHelper {
 
         if (book.getTypeId() == 1 && book.getStatusId() == 1) {
 
-            System.out.println("Ksiazka dostepna");
+            updateStatus = BookDataAccess.updateLibraryElementStatusById(libraryElementId, 2);
+
+            if (updateStatus > 0) {
+
+                System.out.println(book.getTitle() + " status: oczukująca\nUdaj się do punktu wypożyceń");
+
+            }
+
             borrowingView(libraryUser);
 
         } else {
@@ -174,7 +182,14 @@ public final class UserMenu implements MenuHelper {
 
             if (movie.getTypeId() == 2 && movie.getStatusId() == 1) {
 
-                System.out.println("Film dostepny");
+                updateStatus = BookDataAccess.updateLibraryElementStatusById(libraryElementId, 2);
+
+                if (updateStatus > 0) {
+
+                    System.out.println(book.getTitle() + " status: oczukująca\nUdaj się do punktu wypożyceń");
+
+                }
+
                 borrowingView(libraryUser);
 
             }

@@ -58,31 +58,6 @@ public class BookDataAccess {
         return status;
     }
 
-    //This method is used for Book and Movie element type
-    public static int deleteLibraryElement(int libraryElementId) {
-
-        int status = 0;
-
-        try {
-
-            Connection connection = getConnection();
-
-            String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setInt(1, libraryElementId);
-
-            status = preparedStatement.executeUpdate();
-
-            connection.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return status;
-    }
-
     public static List<Book> getAllBooksByTitleAndSort(String title, String sort) {
 
         List<Book> bookList = new ArrayList<Book>();
@@ -165,10 +140,57 @@ public class BookDataAccess {
 
     }
 
+    //This method is used for Book and Movie element type
+    public static int updateLibraryElementStatusById(int bookId, int statusId) {
 
-    public static boolean updateBookStatus(int bookId) {
+        int status = 0;
 
-        return false;
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Library_element]" +
+                    "SET status_id = ? WHERE library_element_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, statusId);
+            preparedStatement.setInt(2, bookId);
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+
+    }
+
+    //This method is used for Book and Movie element type
+    public static int deleteLibraryElement(int libraryElementId) {
+
+        int status = 0;
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, libraryElementId);
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
     }
 
 }

@@ -17,9 +17,6 @@ public class RequestDataAccess {
 
         try {
             connection = DriverManager.getConnection(urlConnection);
-
-            System.out.println("Connected to data base");
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

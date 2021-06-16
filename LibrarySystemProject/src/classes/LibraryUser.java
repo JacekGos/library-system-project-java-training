@@ -29,58 +29,22 @@ public class LibraryUser extends User{
         return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
     }
 
-    public void addBorrowing(int libraryElementId, String borrowingDate, int borrowingStatusId, int libraryUserId) {
+    public void addBorrowing(int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
 
         Borrowing borrowing = new Borrowing(0, libraryElementId, borrowingDate, borrowingStatusId, libraryUserId);
         userBorrowingsList.add(borrowing);
 
     }
 
-    /*public int getBorrowingLibraryElementId() {
-
-        int index = userBorrowingsList.size() - 1;
-        Borrowing lastBorrowing = userBorrowingsList.get(index);
-
-        return lastBorrowing.getLibraryElementId();
-
-    }
-
-    public String getBorrowingDate() {
-
-        int index = userBorrowingsList.size() - 1;
-        Borrowing lastBorrowing = userBorrowingsList.get(index);
-
-        return lastBorrowing.getBorrowingDate();
-
-    }
-
-    public int getBorrowingStatusId() {
-
-        int index = userBorrowingsList.size() - 1;
-        Borrowing lastBorrowing = userBorrowingsList.get(index);
-
-        return lastBorrowing.getBorrowingStatusId();
-
-    }
-
-    public int getBorrowingLibraryUserId() {
-
-        int index = userBorrowingsList.size() - 1;
-        Borrowing lastBorrowing = userBorrowingsList.get(index);
-
-        return lastBorrowing.getLibraryUserId();
-
-    }*/
-
     private class Borrowing {
 
         private int borrowingId;
         private int libraryElementId;
-        private String borrowingDate;
+        private java.sql.Timestamp borrowingDate;
         private int borrowingStatusId;
         private int libraryUserId;
 
-        private Borrowing(int borrowingId, int libraryElementId, String borrowingDate, int borrowingStatusId, int libraryUserId) {
+        private Borrowing(int borrowingId, int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
 
             this.borrowingId = borrowingId;
             this.libraryElementId = libraryElementId;
@@ -108,11 +72,11 @@ public class LibraryUser extends User{
             this.libraryElementId = libraryElementId;
         }
 
-        public String getBorrowingDate() {
+        public java.sql.Timestamp getBorrowingDate() {
             return borrowingDate;
         }
 
-        public void setBorrowingDate(String borrowingDate) {
+        public void setBorrowingDate(java.sql.Timestamp borrowingDate) {
             this.borrowingDate = borrowingDate;
         }
 

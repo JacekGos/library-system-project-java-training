@@ -5,6 +5,7 @@ import data_access.BookDataAccess;
 import data_access.BorrowingDataAccess;
 import data_access.MovieDataAccess;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,7 @@ public final class UserMenu implements MenuHelper {
     private UserMenu(){}
 
     public static void showUserMenu(LibraryUser libraryUser){
+
         System.out.println("_____________________");
         System.out.println("Menu główne: ");
         System.out.println("1. Wyszukaj\n" +
@@ -62,6 +64,7 @@ public final class UserMenu implements MenuHelper {
 
     private static void findLibraryElementView(LibraryUser libraryUser){
 
+        System.out.println("_____________________");
         System.out.println("Wyszukiwarka pozycji:\n" +
                         "1. Wyszukaj\n" +
                         "2. Powrót");
@@ -163,8 +166,8 @@ public final class UserMenu implements MenuHelper {
         Movie movie = new Movie();
         int libraryElementId = -1;
         int updateStatus = 0;
-        String borrowingDate = null;
-
+        java.sql.Timestamp borrowingDate = null;
+        long currentTime = 0;
 
         System.out.println("_____________________");
         System.out.print("Podaj id pozycji: ");
@@ -178,10 +181,12 @@ public final class UserMenu implements MenuHelper {
 
             if (updateStatus > 0) {
 
-                borrowingDate = simpleDateFormat.format(new Date());
+                currentTime = System.currentTimeMillis();
+                borrowingDate = new java.sql.Timestamp(currentTime);
 
                 libraryUser.addBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
                 BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+
                 System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
 
             }
@@ -198,7 +203,13 @@ public final class UserMenu implements MenuHelper {
 
                 if (updateStatus > 0) {
 
-                    System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+                    currentTime = System.currentTimeMillis();
+                    borrowingDate = new java.sql.Timestamp(currentTime);
+
+                    libraryUser.addBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                    BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+
+                    System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
 
                 }
 

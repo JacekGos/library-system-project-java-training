@@ -2,11 +2,7 @@ package data_access;
 
 import classes.LibraryUser;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
+import java.sql.*;
 
 
 public class BorrowingDataAccess {
@@ -18,9 +14,6 @@ public class BorrowingDataAccess {
 
         try {
             connection = DriverManager.getConnection(urlConnection);
-
-            System.out.println("Connected to data base");
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -29,7 +22,7 @@ public class BorrowingDataAccess {
 
     }
 
-    public static int insertBorrowing(int libraryElementId, String borrowingDate, int borrowingStatusId, int libraryUserId) {
+    public static int insertBorrowing(int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
 
         int status = 0;
 
@@ -42,7 +35,7 @@ public class BorrowingDataAccess {
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, libraryElementId);
-            preparedStatement.setString(2, borrowingDate);
+            preparedStatement.setTimestamp(2, borrowingDate);
             preparedStatement.setInt(3, borrowingStatusId);
             preparedStatement.setInt(4, libraryUserId);
 

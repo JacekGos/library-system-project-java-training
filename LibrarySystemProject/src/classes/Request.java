@@ -51,4 +51,11 @@ public class Request {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+    public String getRequestData() {
+
+        return getRequestId() + " -- " + getBorrowingId()
+                + " -- " + getRequestDate() + " -- " + DataDisplayHelper.formatStatusToString(getStatusId());
+
+    }
 }

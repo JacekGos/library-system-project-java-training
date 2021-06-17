@@ -1,8 +1,11 @@
 package com.jacekg;
 
 import classes.LibraryUser;
+import classes.LibraryWorker;
+import classes.Request;
 import data_access.BookDataAccess;
 import data_access.BorrowingDataAccess;
+import data_access.RequestDataAccess;
 import user_interface.MenuHelper;
 
 import java.sql.ResultSet;
@@ -19,11 +22,15 @@ public class Main {
 
         MenuHelper.logOnPanel();
 
+       /* LibraryWorker libraryWorker = new LibraryWorker();
+        List<Request> requestList = new ArrayList<Request>();
 
-       /* LibraryUser user = new LibraryUser(1, "Jacek", "Gos", "jg", "pwd", 2, 0);
+        requestList = RequestDataAccess.getAllRequests(libraryWorker);
 
-        int result = BorrowingDataAccess.getLastBorrowingID(user);
-        System.out.println(result);*/
+        for (Request requestObj : requestList)
+        {
+            System.out.println(requestObj.getRequestData());
+        }*/
 
     }
 }

@@ -50,7 +50,7 @@ public final class UserMenu implements MenuHelper {
                 returningView();
                 break;
             case 4:
-                userBorrowingsView();
+                userBorrowingsView(libraryUser);
                 break;
             case 5:
                 MenuHelper.logOnPanel();
@@ -108,8 +108,26 @@ public final class UserMenu implements MenuHelper {
         System.out.printf("Zwróć pozycję:\n ");
     }
 
-    private static void userBorrowingsView(){
-        System.out.printf("Twoje wypożyczenia:\n ");
+    private static void userBorrowingsView(LibraryUser libraryUser){
+
+        System.out.println("_____________________");
+        System.out.println("Twoje wypożyczenia:\n" +
+                "1. Wyświetl\n" +
+                "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                showUserBorowings(libraryUser);
+                break;
+            case 2:
+                showUserMenu(libraryUser);
+                break;
+        }
+
     }
 
     //Main menu nested options
@@ -239,6 +257,19 @@ public final class UserMenu implements MenuHelper {
 
         System.out.println("Poyzcja niedostępna");
         borrowingView(libraryUser);
+
+    }
+
+    public static void showUserBorowings(LibraryUser libraryUser) {
+
+        System.out.println("_____________________");
+        System.out.println("Id -- Id pozycji -- Data wypożyczenia -- Status");
+
+        libraryUser.getBorrowingsData();
+
+        System.out.print("<--- Wciśnij przycisk aby powrócić");
+        myInput.nextLine();
+        userBorrowingsView(libraryUser);
 
     }
 

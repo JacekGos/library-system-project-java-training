@@ -1,5 +1,7 @@
 package classes;
 
+import data_access.BorrowingDataAccess;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,18 @@ public class LibraryUser extends User{
 
             System.out.println(borrowingObj.getBorrowingData());
 
+        }
+
+    }
+
+    public void getBorrowingsData() {
+
+        userBorrowingsList.clear();
+        BorrowingDataAccess.getAllBorrowingsByUserId(this.getUserId(), this);
+
+        for (Borrowing borrowingObj : userBorrowingsList) {
+
+            System.out.println(borrowingObj.getBorrowingData());
         }
 
     }
@@ -107,8 +121,10 @@ public class LibraryUser extends User{
         }
 
         public String getBorrowingData() {
-            return getBorrowingId() + " -- " + getLibraryElementId() + " -- " + getBorrowingDate()
-                    + " -- " + getBorrowingStatusId() + " -- " + getLibraryUserId();
+
+            return getBorrowingId() + " -- " + getLibraryElementId()
+                    + " -- " + getBorrowingDate() + " -- " + DataDisplayHelper.formatStatusToString(getBorrowingStatusId());
+
         }
 
     }

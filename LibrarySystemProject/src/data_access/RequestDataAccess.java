@@ -89,5 +89,41 @@ public class RequestDataAccess {
 
     }
 
+    public static int getUserIdByBorrowingId(LibraryWorker libraryWorker, int borrowingId) {
+
+        int userId = 0;
+
+        String sqlQuery = "SELECT [library_user_id] FROM [LibraryProject_v2].[dbo].[Borrowings] AS b"
+                + " INNER JOIN [LibraryProject_v2].[dbo].[Request] AS r"
+                + " ON b.borrowing_id = r.borrowing_id "
+                + " WHERE b.borrowing_id LIKE ?";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            preparedStatement.setInt(1, borrowingId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+
+                userId = resultSet.getInt(1);
+
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return userId;
+
+    }
+
 
 }

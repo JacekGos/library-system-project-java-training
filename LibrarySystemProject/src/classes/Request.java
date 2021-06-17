@@ -1,5 +1,7 @@
 package classes;
 
+import data_access.RequestDataAccess;
+
 import java.text.SimpleDateFormat;
 
 public class Request {
@@ -52,10 +54,11 @@ public class Request {
         this.statusId = statusId;
     }
 
-    public String getRequestData() {
+    public String getRequestData(LibraryWorker libraryWorker) {
 
         return getRequestId() + " -- " + getBorrowingId()
-                + " -- " + getRequestDate() + " -- " + DataDisplayHelper.formatStatusToString(getStatusId());
+                + " -- " + getRequestDate() + " -- " + RequestDataAccess.getUserIdByBorrowingId(libraryWorker, getBorrowingId())
+                + " -- " + DataDisplayHelper.formatStatusToString(getStatusId());
 
     }
 }

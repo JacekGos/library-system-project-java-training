@@ -22,15 +22,10 @@ public class Main {
 
         MenuHelper.logOnPanel();
 
-       /* LibraryWorker libraryWorker = new LibraryWorker();
-        List<Request> requestList = new ArrayList<Request>();
+        /*LibraryWorker libraryWorker = new LibraryWorker();
 
-        requestList = RequestDataAccess.getAllRequests(libraryWorker);
+        int userId = RequestDataAccess.getUserIdByBorrowingId(libraryWorker, 8);
 
-        for (Request requestObj : requestList)
-        {
-            System.out.println(requestObj.getRequestData());
-        }*/
-
+        System.out.println(userId);*/
     }
 }

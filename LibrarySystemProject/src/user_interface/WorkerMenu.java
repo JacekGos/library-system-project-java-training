@@ -1,10 +1,7 @@
 package user_interface;
 
 import classes.*;
-import data_access.BookDataAccess;
-import data_access.LibraryUserDataAccess;
-import data_access.LibraryWorkerDataAccess;
-import data_access.MovieDataAccess;
+import data_access.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +49,7 @@ public class WorkerMenu implements MenuHelper {
                 findUserView(libraryWorker);
                 break;
             case 4:
-                borrowingsView();
+                borrowingsView(libraryWorker);
                 break;
             case 5:
                 addLibraryElementView(libraryWorker);
@@ -137,8 +134,26 @@ public class WorkerMenu implements MenuHelper {
 
     }
 
-    private static void borrowingsView() {
+    private static void borrowingsView(LibraryWorker libraryWorker) {
+
+        int userId = 0;
+
         System.out.println("_____________________");
+        System.out.println("Aktualne zapytania o wypożyczenia: ");
+        System.out.println("Id -- Id wypożyczenia -- Data zapytania -- Id Użytkownika -- Status zapytania");
+
+        List<Request> requestList = new ArrayList<Request>();
+
+        requestList = RequestDataAccess.getAllRequests(libraryWorker);
+
+        for (Request requestObj : requestList)
+        {
+            System.out.println(requestObj.getRequestData(libraryWorker));
+        }
+
+        System.out.println("_____________________");
+        System.out.print("Podaj id użytkownika: ");
+        userId = MenuHelper.checkChoosedOptionValidation(-1);
 
     }
 

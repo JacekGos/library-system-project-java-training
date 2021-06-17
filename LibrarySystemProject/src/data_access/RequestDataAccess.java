@@ -3,10 +3,7 @@ package data_access;
 import classes.Book;
 import classes.Request;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class RequestDataAccess {
 
@@ -24,24 +21,22 @@ public class RequestDataAccess {
         return connection;
 
     }
-    //First create borrowing logic
-    /*public static int insertRequest(Request request) {
+
+    public static int insertRequest(Request request) {
 
         int status = 0;
 
-        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Library_element]"
-                + "VALUES (?, ?, ?, ?, NULL, ?)";
+        String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Request]"
+                + "VALUES (?, ?, ?)";
 
         try {
 
             Connection connection = getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setInt(2, book.getTypeId());
-            preparedStatement.setInt(3, book.getSortId());
-            preparedStatement.setInt(4, book.getPagesNumber());
-            preparedStatement.setInt(5, book.getStatusId());
+            preparedStatement.setInt(1, request.getBorrowingId());
+            preparedStatement.setTimestamp(2, request.getRequestDate());
+            preparedStatement.setInt(3,request.getStatusId());
 
             status = preparedStatement.executeUpdate();
 
@@ -52,5 +47,5 @@ public class RequestDataAccess {
         }
 
         return status;
-    }*/
+    }
 }

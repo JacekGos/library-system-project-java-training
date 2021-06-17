@@ -85,4 +85,35 @@ public class BorrowingDataAccess {
 
     }
 
+    public static int getLastBorrowingID(LibraryUser libraryUser) {
+
+        String sqlQuery = "SELECT TOP(1) [borrowing_id] FROM [LibraryProject_v2].[dbo].[Borrowings] ORDER BY [borrowing_id] DESC";
+
+        int lastBorrowingId = 0;
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                lastBorrowingId = resultSet.getInt(1);
+
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return lastBorrowingId;
+
+    }
+
+
 }

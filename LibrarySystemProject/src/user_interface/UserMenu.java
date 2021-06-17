@@ -4,6 +4,7 @@ import classes.*;
 import data_access.BookDataAccess;
 import data_access.BorrowingDataAccess;
 import data_access.MovieDataAccess;
+import data_access.RequestDataAccess;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -163,6 +164,8 @@ public final class UserMenu implements MenuHelper {
         Movie movie = new Movie();
         int libraryElementId = -1;
         int updateStatus = 0;
+        int borrowingInsertStatus = 0;
+        int lastBorrowingId = 0;
         java.sql.Timestamp borrowingDate = null;
         long currentTime = 0;
 
@@ -182,9 +185,18 @@ public final class UserMenu implements MenuHelper {
                 borrowingDate = new java.sql.Timestamp(currentTime);
 
                 libraryUser.addBorrowing(0, libraryElementId, borrowingDate, 2, libraryUser.getUserId());
-                BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                borrowingInsertStatus = BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                lastBorrowingId = BorrowingDataAccess.getLastBorrowingID(libraryUser);
 
-                System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+                if (borrowingInsertStatus > 0) {
+
+                    lastBorrowingId = BorrowingDataAccess.getLastBorrowingID(libraryUser);
+                    Request request = new Request(0, lastBorrowingId, borrowingDate, 2);
+                    RequestDataAccess.insertRequest(request);
+
+                    System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+
+                }
 
             }
 
@@ -204,9 +216,18 @@ public final class UserMenu implements MenuHelper {
                     borrowingDate = new java.sql.Timestamp(currentTime);
 
                     libraryUser.addBorrowing(0, libraryElementId, borrowingDate, 2, libraryUser.getUserId());
-                    BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                    borrowingInsertStatus = BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                    lastBorrowingId = BorrowingDataAccess.getLastBorrowingID(libraryUser);
 
-                    System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+                    if (borrowingInsertStatus > 0) {
+
+                        lastBorrowingId = BorrowingDataAccess.getLastBorrowingID(libraryUser);
+                        Request request = new Request(0, lastBorrowingId, borrowingDate, 2);
+                        RequestDataAccess.insertRequest(request);
+
+                        System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+
+                    }
 
                 }
 

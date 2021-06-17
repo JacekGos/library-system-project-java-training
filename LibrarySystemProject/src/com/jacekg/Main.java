@@ -17,13 +17,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        MenuHelper.logOnPanel();
+        MenuHelper.logOnPanel();
 
-        LibraryUser user = new LibraryUser();
 
-        BorrowingDataAccess.getAllBorrowingsByUserId(3, user);
+       /* LibraryUser user = new LibraryUser(1, "Jacek", "Gos", "jg", "pwd", 2, 0);
 
-       user.getAllBorrowings();
+        int result = BorrowingDataAccess.getLastBorrowingID(user);
+        System.out.println(result);*/
 
     }
 }

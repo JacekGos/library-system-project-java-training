@@ -18,9 +18,6 @@ public final class UserMenu implements MenuHelper {
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
 
-    private static String datePattern = "dd-MM-yyyy hh:mm";
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-
     private UserMenu(){}
 
     public static void showUserMenu(LibraryUser libraryUser){
@@ -184,7 +181,7 @@ public final class UserMenu implements MenuHelper {
                 currentTime = System.currentTimeMillis();
                 borrowingDate = new java.sql.Timestamp(currentTime);
 
-                libraryUser.addBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                libraryUser.addBorrowing(0, libraryElementId, borrowingDate, 2, libraryUser.getUserId());
                 BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
 
                 System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
@@ -206,7 +203,7 @@ public final class UserMenu implements MenuHelper {
                     currentTime = System.currentTimeMillis();
                     borrowingDate = new java.sql.Timestamp(currentTime);
 
-                    libraryUser.addBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
+                    libraryUser.addBorrowing(0, libraryElementId, borrowingDate, 2, libraryUser.getUserId());
                     BorrowingDataAccess.insertBorrowing(libraryElementId, borrowingDate, 2, libraryUser.getUserId());
 
                     System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");

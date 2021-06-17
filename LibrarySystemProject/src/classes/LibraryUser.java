@@ -29,10 +29,20 @@ public class LibraryUser extends User{
         return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
     }
 
-    public void addBorrowing(int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
+    public void addBorrowing(int borrowingId, int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
 
-        Borrowing borrowing = new Borrowing(0, libraryElementId, borrowingDate, borrowingStatusId, libraryUserId);
+        Borrowing borrowing = new Borrowing(borrowingId, libraryElementId, borrowingDate, borrowingStatusId, libraryUserId);
         userBorrowingsList.add(borrowing);
+
+    }
+
+    public void getAllBorrowings() {
+
+        for (Borrowing borrowingObj : userBorrowingsList) {
+
+            System.out.println(borrowingObj.getBorrowingData());
+
+        }
 
     }
 
@@ -94,6 +104,11 @@ public class LibraryUser extends User{
 
         public void setLibraryUserId(int libraryUserId) {
             this.libraryUserId = libraryUserId;
+        }
+
+        public String getBorrowingData() {
+            return getBorrowingId() + " -- " + getLibraryElementId() + " -- " + getBorrowingDate()
+                    + " -- " + getBorrowingStatusId() + " -- " + getLibraryUserId();
         }
 
     }

@@ -3,6 +3,8 @@ package data_access;
 import classes.LibraryUser;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BorrowingDataAccess {
@@ -48,6 +50,39 @@ public class BorrowingDataAccess {
         }
 
         return status;
+    }
+
+    public static void getAllBorrowingsByUserId(int userId, LibraryUser libraryUser) {
+
+        String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE library_user_id = ?";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int borrowingId = resultSet.getInt(1);
+                int elementId = resultSet.getInt(2);
+                java.sql.Timestamp date = resultSet.getTimestamp(3);
+                int statusId = resultSet.getInt(4);
+                int libraryUserId = resultSet.getInt(5);
+
+                libraryUser.addBorrowing(borrowingId, elementId, date, statusId, libraryUserId);
+
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
 }

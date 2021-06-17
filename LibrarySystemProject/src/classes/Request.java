@@ -6,10 +6,10 @@ public class Request {
 
     private int requestId;
     private int borrowingId;
-    private String requestDate;
+    private java.sql.Timestamp requestDate;
     private int statusId;
 
-    public Request(int requestId, int borrowingId, String requestDate, int statusId) {
+    public Request(int requestId, int borrowingId, java.sql.Timestamp requestDate, int statusId) {
 
         this.requestId = requestId;
         this.borrowingId = borrowingId;
@@ -36,11 +36,11 @@ public class Request {
         this.borrowingId = borrowingId;
     }
 
-    public String getRequestDate() {
+    public java.sql.Timestamp getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(String requestDate) {
+    public void setRequestDate(java.sql.Timestamp requestDate) {
         this.requestDate = requestDate;
     }
 

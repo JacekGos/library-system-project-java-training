@@ -22,7 +22,8 @@ public class Main {
 
         MenuHelper.logOnPanel();
 
-        /*int status = RequestDataAccess.updateRequestStatus(6, (byte) 2);
-        System.out.println(status);*/
+
+
+
     }
 }

@@ -502,6 +502,7 @@ public class WorkerMenu implements MenuHelper {
         int userId = 0;
         int requestId = 0;
         int borrowingId = 0;
+        int libraryElementId = 0;
 
         System.out.println("_____________________");
         System.out.print("Podaj id użytkownika: ");
@@ -529,15 +530,18 @@ public class WorkerMenu implements MenuHelper {
             borrowingId = getBorrowingIdFromRequest(requestId, requestList);
 
             switch (choosedOption) {
-
                 case 1:
                     BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)1);
+                    libraryElementId = RequestDataAccess.getLibraryElementIdByRequestId(libraryWorker, requestId);
+                    BookDataAccess.updateLibraryElementStatusById(libraryElementId, 3);
                     RequestDataAccess.deleteRequest(requestId);
 
                     borrowingsView(libraryWorker);
                     break;
                 case 2:
                     BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)2);
+                    libraryElementId = RequestDataAccess.getLibraryElementIdByRequestId(libraryWorker, requestId);
+                    BookDataAccess.updateLibraryElementStatusById(libraryElementId, 1);
                     RequestDataAccess.deleteRequest(requestId);
 
                     borrowingsView(libraryWorker);

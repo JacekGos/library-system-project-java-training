@@ -125,6 +125,42 @@ public class RequestDataAccess {
 
     }
 
+    public static int getLibraryElementIdByRequestId(LibraryWorker libraryWorker, int requestId) {
+
+        int libraryElementId = 0;
+
+        String sqlQuery = "SELECT [library_user_id] FROM [LibraryProject_v2].[dbo].[Borrowings] AS b"
+                + " INNER JOIN [LibraryProject_v2].[dbo].[Request] AS r"
+                + " ON b.borrowing_id = r.borrowing_id "
+                + " WHERE request_id LIKE ?";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            preparedStatement.setInt(1, requestId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+
+                libraryElementId = resultSet.getInt(1);
+
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return libraryElementId;
+
+    }
+
     public static int updateRequestStatus(int requestId, byte option) {
 
         String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Request]" +

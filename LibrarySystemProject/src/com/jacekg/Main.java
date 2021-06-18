@@ -22,10 +22,7 @@ public class Main {
 
         MenuHelper.logOnPanel();
 
-        /*LibraryWorker libraryWorker = new LibraryWorker();
-
-        int userId = RequestDataAccess.getUserIdByBorrowingId(libraryWorker, 8);
-
-        System.out.println(userId);*/
+        /*int status = RequestDataAccess.updateRequestStatus(6, (byte) 2);
+        System.out.println(status);*/
     }
 }

@@ -61,4 +61,16 @@ public class Request {
                 + " -- " + DataDisplayHelper.formatStatusToString(getStatusId());
 
     }
+
+    public String getRequestDataByUserId(LibraryWorker libraryWorker, int userId) {
+
+        if (RequestDataAccess.getUserIdByBorrowingId(libraryWorker, getBorrowingId()) == userId) {
+            return getRequestId() + " -- " + getBorrowingId()
+                    + " -- " + getRequestDate() + " -- " + RequestDataAccess.getUserIdByBorrowingId(libraryWorker, getBorrowingId())
+                    + " -- " + DataDisplayHelper.formatStatusToString(getStatusId()) + "\n";
+        }
+
+        return "";
+
+    }
 }

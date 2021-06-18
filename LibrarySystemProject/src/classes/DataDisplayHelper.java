@@ -16,6 +16,12 @@ public interface DataDisplayHelper {
             case 3:
                 statusString = "Wypożyczona";
                 break;
+            case 4:
+                statusString = "Zatwierdzony";
+                break;
+            case 5:
+                statusString = "Odrzucony";
+                break;
             default:
                 statusString = "Błąd";
                 break;

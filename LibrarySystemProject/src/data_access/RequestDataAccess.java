@@ -125,5 +125,68 @@ public class RequestDataAccess {
 
     }
 
+    public static int updateRequestStatus(int requestId, byte option) {
+
+        String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Request]" +
+                "SET status_id = 4 WHERE request_id LIKE ?";
+
+        String sqlQuery2 = "UPDATE [LibraryProject_v2].[dbo].[Request]" +
+                "SET status_id = 5 WHERE request_id LIKE ?";
+
+        int status = 0;
+
+        try {
+
+            PreparedStatement preparedStatement = null;
+            
+            Connection connection = getConnection();
+
+            if (option == 1) {
+                
+                preparedStatement = connection.prepareStatement(sqlQuery);
+                
+            } else if (option == 2) {
+
+                preparedStatement = connection.prepareStatement(sqlQuery2);
+            }
+
+            preparedStatement.setInt(1, requestId);
+
+            status = preparedStatement.executeUpdate();
+            
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+
+    }
+
+    public static int deleteRequest(int requestId) {
+
+        int status = 0;
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Request] WHERE request_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, requestId);
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+    }
+
 
 }

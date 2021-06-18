@@ -136,8 +136,6 @@ public class WorkerMenu implements MenuHelper {
 
     private static void borrowingsView(LibraryWorker libraryWorker) {
 
-        int userId = 0;
-
         System.out.println("_____________________");
         System.out.println("Aktualne zapytania o wypożyczenia: ");
         System.out.println("Id -- Id wypożyczenia -- Data zapytania -- Id Użytkownika -- Status zapytania");
@@ -151,9 +149,21 @@ public class WorkerMenu implements MenuHelper {
             System.out.println(requestObj.getRequestData(libraryWorker));
         }
 
-        System.out.println("_____________________");
-        System.out.print("Podaj id użytkownika: ");
-        userId = MenuHelper.checkChoosedOptionValidation(-1);
+        System.out.println("1. Kontynuuj\n" +
+                "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                requestAcceptanceView(libraryWorker);
+                break;
+            case 2:
+                showWorkerMenu(libraryWorker);
+                break;
+        }
 
     }
 
@@ -483,6 +493,83 @@ public class WorkerMenu implements MenuHelper {
         System.out.print("<--- Wciśnij przycisk aby powrócić");
         myInput.nextLine();
         findLibraryElementView(libraryWorker);
+    }
+
+    public static void requestAcceptanceView(LibraryWorker libraryWorker) {
+
+        List<Request> requestList = new ArrayList<Request>();
+
+        int userId = 0;
+        int requestId = 0;
+        int borrowingId = 0;
+
+        System.out.println("_____________________");
+        System.out.print("Podaj id użytkownika: ");
+        userId = MenuHelper.checkChoosedOptionValidation(-1);
+
+        requestList = RequestDataAccess.getAllRequests(libraryWorker);
+
+        System.out.println("Id -- Id wypożyczenia -- Data zapytania -- Id Użytkownika -- Status zapytania");
+        for (Request requestObj : requestList)
+        {
+            System.out.print(requestObj.getRequestDataByUserId(libraryWorker, userId));
+        }
+
+        System.out.print("Podaj id zapytania: ");
+        requestId = MenuHelper.checkChoosedOptionValidation(-1);
+
+        if (checkIfRequestExists(requestId, requestList) == true) {
+            System.out.println("_____________________");
+            System.out.println("1. Zaakceptuj:\n" +
+                    "2. Odrzuć\n" +
+                    "3. Powrót");
+            System.out.print("Wybierz opcje: ");
+            choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(3);
+
+            borrowingId = getBorrowingIdFromRequest(requestId, requestList);
+
+            switch (choosedOption) {
+
+                case 1:
+                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)1);
+                    RequestDataAccess.deleteRequest(requestId);
+
+                    borrowingsView(libraryWorker);
+                    break;
+                case 2:
+                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)2);
+                    RequestDataAccess.deleteRequest(requestId);
+
+                    borrowingsView(libraryWorker);
+                    break;
+                case 3:
+                    borrowingsView(libraryWorker);
+                    break;
+            }
+        } else {
+            System.out.println("Nie poprawny Id zapytania");
+            borrowingsView(libraryWorker);
+        }
+
+    }
+
+    public static boolean checkIfRequestExists(int requestId, List<Request> requestList) {
+        for (Request requestObj : requestList) {
+            if (requestObj.getRequestId() == requestId) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int getBorrowingIdFromRequest(int requestId, List<Request> requestList) {
+        for (Request requestObj : requestList) {
+            if (requestObj.getRequestId() == requestId) {
+                return requestObj.getBorrowingId();
+            }
+        }
+        return -1;
     }
 
 }

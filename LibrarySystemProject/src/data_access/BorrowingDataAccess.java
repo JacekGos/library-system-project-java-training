@@ -115,5 +115,43 @@ public class BorrowingDataAccess {
 
     }
 
+    public static int updateBorrowingStatus(int borrowingId, byte option) {
+
+        String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
+                "SET status_id = 4 WHERE borrowing_id LIKE ?";
+
+        String sqlQuery2 = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
+                "SET status_id = 5 WHERE borrowing_id LIKE ?";
+
+        int status = 0;
+
+        try {
+
+            PreparedStatement preparedStatement = null;
+
+            Connection connection = getConnection();
+
+            if (option == 1) {
+
+                preparedStatement = connection.prepareStatement(sqlQuery);
+
+            } else if (option == 2) {
+
+                preparedStatement = connection.prepareStatement(sqlQuery2);
+            }
+
+            preparedStatement.setInt(1, borrowingId);
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+
+    }
 
 }

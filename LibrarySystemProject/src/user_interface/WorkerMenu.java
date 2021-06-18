@@ -158,7 +158,7 @@ public class WorkerMenu implements MenuHelper {
         switch (choosedOption) {
 
             case 1:
-                requestAcceptanceView(libraryWorker);
+                requestAcceptanceView(libraryWorker, requestList);
                 break;
             case 2:
                 showWorkerMenu(libraryWorker);
@@ -495,9 +495,9 @@ public class WorkerMenu implements MenuHelper {
         findLibraryElementView(libraryWorker);
     }
 
-    public static void requestAcceptanceView(LibraryWorker libraryWorker) {
+    public static void requestAcceptanceView(LibraryWorker libraryWorker, List<Request> requestList) {
 
-        List<Request> requestList = new ArrayList<Request>();
+        List<Request> requestListByUser = new ArrayList<Request>();
 
         int userId = 0;
         int requestId = 0;
@@ -507,18 +507,18 @@ public class WorkerMenu implements MenuHelper {
         System.out.print("Podaj id użytkownika: ");
         userId = MenuHelper.checkChoosedOptionValidation(-1);
 
-        requestList = RequestDataAccess.getAllRequests(libraryWorker);
+        requestListByUser = createRequestListByUser(libraryWorker, requestList, userId);
 
         System.out.println("Id -- Id wypożyczenia -- Data zapytania -- Id Użytkownika -- Status zapytania");
-        for (Request requestObj : requestList)
+        for (Request requestObj : requestListByUser)
         {
-            System.out.print(requestObj.getRequestDataByUserId(libraryWorker, userId));
+            System.out.println(requestObj.getRequestData(libraryWorker));
         }
 
         System.out.print("Podaj id zapytania: ");
         requestId = MenuHelper.checkChoosedOptionValidation(-1);
 
-        if (checkIfRequestExists(requestId, requestList) == true) {
+        if (checkIfRequestExists(requestId, requestListByUser) == true) {
             System.out.println("_____________________");
             System.out.println("1. Zaakceptuj:\n" +
                     "2. Odrzuć\n" +
@@ -547,10 +547,23 @@ public class WorkerMenu implements MenuHelper {
                     break;
             }
         } else {
-            System.out.println("Nie poprawny Id zapytania");
+            System.out.println("Niepoprawny Id zapytania");
             borrowingsView(libraryWorker);
         }
 
+    }
+
+    public static List<Request> createRequestListByUser(LibraryWorker libraryWorker, List<Request> requestList, int userId) {
+
+        List<Request> requestListByUser = new ArrayList<Request>();
+
+        for (Request requestObj : requestList) {
+            if (RequestDataAccess.getUserIdByBorrowingId(libraryWorker, requestObj.getBorrowingId()) == userId) {
+                requestListByUser.add(requestObj);
+            }
+        }
+
+        return requestListByUser;
     }
 
     public static boolean checkIfRequestExists(int requestId, List<Request> requestList) {

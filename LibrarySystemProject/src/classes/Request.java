@@ -2,8 +2,6 @@ package classes;
 
 import data_access.RequestDataAccess;
 
-import java.text.SimpleDateFormat;
-
 public class Request {
 
     private int requestId;

@@ -68,7 +68,6 @@ public final class UserMenu implements MenuHelper {
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
 
         switch (choosedOption) {
-
             case 1:
                 libraryElementSearcher(libraryUser);
                 break;
@@ -185,7 +184,7 @@ public final class UserMenu implements MenuHelper {
 
         for (LibraryElement libraryElementObj : libraryElementList) {
 
-            System.out.println(libraryElementObj.getLibraryElementData());
+            System.out.println(libraryElementObj.toString());
 
         }
 

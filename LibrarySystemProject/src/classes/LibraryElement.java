@@ -62,5 +62,7 @@ public abstract class LibraryElement implements DataDisplayHelper{
         this.typeId = typeId;
     }
 
-    public abstract String getLibraryElementData();
+    @Override
+    public abstract String toString();
+
 }

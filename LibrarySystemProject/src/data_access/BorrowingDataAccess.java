@@ -3,9 +3,6 @@ package data_access;
 import classes.LibraryUser;
 
 import java.sql.*;
-import java.util.ArrayList; // @TODO wywal
-import java.util.List;
-
 
 public class BorrowingDataAccess {
 

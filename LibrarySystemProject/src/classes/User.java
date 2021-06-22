@@ -73,9 +73,14 @@ public abstract class User {
     }
 
     // zamienic na toString()
-    public String getUserData() {
+/*    public String getUserData() {
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- "
+                + DataDisplayHelper.formatUserTypeToString(getAccountType());
+    }*/
+
+    @Override
+    public String toString() {
         return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- "
                 + DataDisplayHelper.formatUserTypeToString(getAccountType());
     }
-
 }

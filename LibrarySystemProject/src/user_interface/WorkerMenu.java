@@ -2,7 +2,6 @@ package user_interface;
 
 import classes.*;
 import data_access.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -355,11 +354,11 @@ public final class WorkerMenu implements MenuHelper {
         System.out.println("Id -- Imie -- Nazwisko -- Nazwa użytkownika -- Typ użytkownika");
 
         for (LibraryWorker libraryWorkerObj : libraryWorkerList) {
-            System.out.println(libraryWorkerObj.getUserData());
+            System.out.println(libraryWorkerObj.toString());
         }
 
         for (LibraryUser libraryUserObj : libraryUserList) {
-            System.out.println(libraryUserObj.getUserData());
+            System.out.println(libraryUserObj.toString());
         }
 
         System.out.print("<--- Wciśnij przycisk aby powrócić");
@@ -481,7 +480,7 @@ public final class WorkerMenu implements MenuHelper {
 
         for (LibraryElement libraryElementObj : libraryElementList) {
 
-            System.out.println(libraryElementObj.getLibraryElementData());
+            System.out.println(libraryElementObj.toString());
 
         }
 

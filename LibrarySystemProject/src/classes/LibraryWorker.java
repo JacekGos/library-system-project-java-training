@@ -11,7 +11,7 @@ public class LibraryWorker extends User{
     }
 
     @Override
-    public String getUserData() {
-        return super.getUserData();
+    public String toString() {
+        return super.toString();
     }
 }

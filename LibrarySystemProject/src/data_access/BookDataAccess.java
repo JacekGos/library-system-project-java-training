@@ -1,9 +1,6 @@
 package data_access;
 
 import classes.Book;
-import classes.LibraryElement;
-import classes.LibraryUser;
-import classes.LibraryWorker;
 
 import java.sql.*;
 import java.util.ArrayList;

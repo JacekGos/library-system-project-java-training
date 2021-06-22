@@ -22,8 +22,7 @@ public class Book extends LibraryElement{
     }
 
     @Override
-    public String getLibraryElementData() {
-
+    public String toString() {
         return  getLibraryElementId() + " -- " + getTitle() + " -- " + DataDisplayHelper.formatTypeToString(getTypeId())
                 + " -- " + DataDisplayHelper.formatSortToString(getSortId()) + " -- " + getPagesNumber()
                 + " -- " + DataDisplayHelper.formatStatusToString(getStatusId());

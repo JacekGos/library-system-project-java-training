@@ -1,10 +1,6 @@
 package data_access;
 
-import classes.Book;
 import classes.Movie;
-import classes.LibraryElement;
-import classes.LibraryWorker;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

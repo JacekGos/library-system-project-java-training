@@ -27,8 +27,8 @@ public class LibraryUser extends User{
     }
 
     @Override
-    public String getUserData() {
-        return super.getUserData();
+    public String toString() {
+        return super.toString();
     }
 
     public void addBorrowing(int borrowingId, int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {

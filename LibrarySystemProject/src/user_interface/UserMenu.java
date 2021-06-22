@@ -259,7 +259,7 @@ public final class UserMenu implements MenuHelper {
                         Request request = new Request(0, lastBorrowingId, borrowingDate, 2);
                         RequestDataAccess.insertRequest(request);
 
-                        System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
+                        System.out.println(movie.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyczeń");
 
                     }
 

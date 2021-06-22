@@ -62,14 +62,12 @@ public class LibraryUser extends User{
 
     public void getBorrowingsToReturn() {
 
-      /*  userBorrowingsList.clear();
-        BorrowingDataAccess.getAllBorrowingsToReturnByUserId(this.getUserId(), this);*/
+        userBorrowingsList.clear();
+        BorrowingDataAccess.getAllBorrowingsByUserId(this.getUserId(), this);
 
         for (Borrowing borrowingObj : userBorrowingsList) {
             if (borrowingObj.getBorrowingStatusId() == 4 ) {
-                System.out.println("status" + borrowingObj.getBorrowingStatusId());
                 System.out.println(borrowingObj.getBorrowingData());
-                System.out.println("");
             }
         }
 
@@ -83,7 +81,6 @@ public class LibraryUser extends User{
         }
         return false;
     }
-
 
     private class Borrowing {
 

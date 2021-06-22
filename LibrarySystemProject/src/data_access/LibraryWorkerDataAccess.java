@@ -55,37 +55,6 @@ public class LibraryWorkerDataAccess {
             return status;
         }
 
-        public static int updateLibraryWorker(LibraryWorker libraryWorker) {
-
-            int status = 0;
-
-            try {
-
-                Connection connection = getConnection();
-
-                String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Librarian]" +
-                        "SET name = ?, surname = ?, login = ?, password = ?, account_type = ? WHERE librarian_id = ?";
-
-                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-                preparedStatement.setString(1, libraryWorker.getUserName());
-                preparedStatement.setString(2, libraryWorker.getUserSurName());
-                preparedStatement.setString(3, libraryWorker.getLogin());
-                preparedStatement.setString(4, libraryWorker.getPassword());
-                preparedStatement.setInt(5, libraryWorker.getAccountType());
-                preparedStatement.setInt(6, libraryWorker.getUserId());
-
-                status = preparedStatement.executeUpdate();
-
-                connection.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-            return status;
-
-        }
-
         public static LibraryWorker getLibraryWorkerById(int libraryWorkerId) {
 
             LibraryWorker libraryWorker = new LibraryWorker();
@@ -265,6 +234,37 @@ public class LibraryWorkerDataAccess {
         }
 
         return libraryWorkerList;
+    }
+
+    public static int updateLibraryWorker(LibraryWorker libraryWorker) {
+
+        int status = 0;
+
+        try {
+
+            Connection connection = getConnection();
+
+            String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Librarian]" +
+                    "SET name = ?, surname = ?, login = ?, password = ?, account_type = ? WHERE librarian_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, libraryWorker.getUserName());
+            preparedStatement.setString(2, libraryWorker.getUserSurName());
+            preparedStatement.setString(3, libraryWorker.getLogin());
+            preparedStatement.setString(4, libraryWorker.getPassword());
+            preparedStatement.setInt(5, libraryWorker.getAccountType());
+            preparedStatement.setInt(6, libraryWorker.getUserId());
+
+            status = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return status;
+
     }
 
     public static int deleteLibraryWorker(int libraryWorkerId) {

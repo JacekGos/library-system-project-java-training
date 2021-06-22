@@ -22,6 +22,9 @@ public interface DataDisplayHelper {
             case 5:
                 statusString = "Odrzucony";
                 break;
+            case 6:
+                statusString = "Zakończony";
+                break;
             default:
                 statusString = "Błąd";
                 break;

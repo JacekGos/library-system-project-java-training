@@ -215,7 +215,7 @@ public final class WorkerMenu implements MenuHelper {
 
 
     private static void findLibraryElementView(LibraryWorker libraryWorker) {
-
+        System.out.println("_____________________");
         System.out.println("Wyszukiwarka pozycji:\n" +
                 "1. Wyszukaj\n" +
                 "2. Powrót");
@@ -526,7 +526,7 @@ public final class WorkerMenu implements MenuHelper {
 
             switch (choosedOption) {
                 case 1:
-                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)1);
+                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)4);
                     libraryElementId = RequestDataAccess.getLibraryElementIdByRequestId(libraryWorker, requestId);
                     System.out.println(libraryElementId);
                     BookDataAccess.updateLibraryElementStatusById(libraryElementId, 3);
@@ -535,7 +535,7 @@ public final class WorkerMenu implements MenuHelper {
                     borrowingsView(libraryWorker);
                     break;
                 case 2:
-                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)2);
+                    BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)5);
                     libraryElementId = RequestDataAccess.getLibraryElementIdByRequestId(libraryWorker, requestId);
                     BookDataAccess.updateLibraryElementStatusById(libraryElementId, 1);
                     RequestDataAccess.deleteRequest(requestId);

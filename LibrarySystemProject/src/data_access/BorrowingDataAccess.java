@@ -99,6 +99,97 @@ public class BorrowingDataAccess {
 
     }
 
+    public static void getAllBorrowingsToReturnByUserId(int userId, LibraryUser libraryUser) {
+
+        String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE library_user_id = ? AND status_id = 5";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int borrowingId = resultSet.getInt(1);
+                int elementId = resultSet.getInt(2);
+                java.sql.Timestamp date = resultSet.getTimestamp(3);
+                int statusId = resultSet.getInt(4);
+                int libraryUserId = resultSet.getInt(5);
+
+                libraryUser.addBorrowing(borrowingId, elementId, date, statusId, libraryUserId);
+
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public static int getLibraryElementByBorrowingId(int borrowingIdArg) {
+
+        String sqlQuery = "SELECT [element_id] FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE borrowing_id LIKE ?";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, borrowingIdArg);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int libraryElement = resultSet.getInt(1);
+
+                return libraryElement;
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static boolean checkIfBorrowingExists(int borrowingIdArg) {
+
+        String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE borrowing_id = ?";
+
+        try {
+
+            Connection connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, borrowingIdArg);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int borrowingId = resultSet.getInt(1);
+
+                if (borrowingId == borrowingIdArg) {
+                    return true;
+                }
+            }
+
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     public static int getLastBorrowingID(LibraryUser libraryUser) {
 
         String sqlQuery = "SELECT TOP(1) [borrowing_id] FROM [LibraryProject_v2].[dbo].[Borrowings] ORDER BY [borrowing_id] DESC";
@@ -129,13 +220,13 @@ public class BorrowingDataAccess {
 
     }
 
-    public static int updateBorrowingStatus(int borrowingId, byte option) {
+    public static int updateBorrowingStatus(int borrowingId, byte borrowingStatus) {
 
         String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
-                "SET status_id = 4 WHERE borrowing_id LIKE ?";
+                "SET status_id = ? WHERE borrowing_id LIKE ?";
 
-        String sqlQuery2 = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
-                "SET status_id = 5 WHERE borrowing_id LIKE ?";
+       /* String sqlQuery2 = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
+                "SET status_id = 5 WHERE borrowing_id LIKE ?";*/
 
         int status = 0;
 
@@ -145,16 +236,10 @@ public class BorrowingDataAccess {
 
             Connection connection = getConnection();
 
-            if (option == 1) {
+            preparedStatement = connection.prepareStatement(sqlQuery);
 
-                preparedStatement = connection.prepareStatement(sqlQuery);
-
-            } else if (option == 2) {
-
-                preparedStatement = connection.prepareStatement(sqlQuery2);
-            }
-
-            preparedStatement.setInt(1, borrowingId);
+            preparedStatement.setInt(1, borrowingStatus);
+            preparedStatement.setInt(2, borrowingId);
 
             status = preparedStatement.executeUpdate();
 

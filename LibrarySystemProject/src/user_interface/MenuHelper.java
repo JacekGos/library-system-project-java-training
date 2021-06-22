@@ -51,6 +51,7 @@ public interface MenuHelper {
 
             if (userDataNotNull == true) {
 
+                libraryUser.getAllBorrowings();
                 UserMenu.showUserMenu(libraryUser);
 
             } else {

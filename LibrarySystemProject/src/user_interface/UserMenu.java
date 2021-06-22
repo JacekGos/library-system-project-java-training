@@ -6,10 +6,7 @@ import data_access.BorrowingDataAccess;
 import data_access.MovieDataAccess;
 import data_access.RequestDataAccess;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,7 +44,7 @@ public final class UserMenu implements MenuHelper {
                 borrowingView(libraryUser);
                 break;
             case 3:
-                returningView();
+                returningView(libraryUser);
                 break;
             case 4:
                 userBorrowingsView(libraryUser);
@@ -83,7 +80,6 @@ public final class UserMenu implements MenuHelper {
     }
 
     private static void borrowingView(LibraryUser libraryUser){
-
         System.out.println("_____________________");
         System.out.println("Wypożyczalnia:\n" +
                         "1. Rozpocznij\n" +
@@ -104,8 +100,25 @@ public final class UserMenu implements MenuHelper {
 
     }
 
-    private static void returningView(){
-        System.out.printf("Zwróć pozycję:\n ");
+    private static void returningView(LibraryUser libraryUser){
+        System.out.println("_____________________");
+        System.out.println("Zwroty:");
+        showUserBorowingsToReturn(libraryUser);
+        System.out.println("1. Zwróć pozycję\n" +
+                "2. Powrót");
+        System.out.print("Wybierz opcje: ");
+
+        choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(2);
+
+        switch (choosedOption) {
+
+            case 1:
+                libraryElementReturns(libraryUser);
+                break;
+            case 2:
+                showUserMenu(libraryUser);
+                break;
+        }
     }
 
     private static void userBorrowingsView(LibraryUser libraryUser){
@@ -122,6 +135,11 @@ public final class UserMenu implements MenuHelper {
 
             case 1:
                 showUserBorowings(libraryUser);
+
+                System.out.print("<--- Wciśnij przycisk aby powrócić");
+                myInput.nextLine();
+                userBorrowingsView(libraryUser);
+
                 break;
             case 2:
                 showUserMenu(libraryUser);
@@ -212,10 +230,8 @@ public final class UserMenu implements MenuHelper {
                     Request request = new Request(0, lastBorrowingId, borrowingDate, 2);
                     RequestDataAccess.insertRequest(request);
 
-                    System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyceń");
-
+                    System.out.println(book.getTitle() + " status: oczukująca na zatwierdzenie\nUdaj się do punktu wypożyczeń");
                 }
-
             }
 
             borrowingView(libraryUser);
@@ -250,9 +266,7 @@ public final class UserMenu implements MenuHelper {
                 }
 
                 borrowingView(libraryUser);
-
             }
-
         }
 
         System.out.println("Poyzcja niedostępna");
@@ -262,15 +276,39 @@ public final class UserMenu implements MenuHelper {
 
     public static void showUserBorowings(LibraryUser libraryUser) {
 
-        System.out.println("_____________________");
         System.out.println("Id -- Id pozycji -- Data wypożyczenia -- Status");
 
         libraryUser.getBorrowingsData();
 
-        System.out.print("<--- Wciśnij przycisk aby powrócić");
-        myInput.nextLine();
-        userBorrowingsView(libraryUser);
+    }
 
+    public static void showUserBorowingsToReturn(LibraryUser libraryUser) {
+
+        System.out.println("Id -- Id pozycji -- Data wypożyczenia -- Status");
+
+        libraryUser.getBorrowingsToReturn();
+
+    }
+
+    public static void libraryElementReturns(LibraryUser libraryUser) {
+        int borrowingId = 0;
+        int libraryElementId = 0;
+
+        System.out.println("_____________________");
+        System.out.print("Podaj Id wypożyczenia: ");
+        borrowingId = MenuHelper.checkChoosedOptionValidation(-1);
+
+        if (libraryUser.checkBorrowingAvailableToReturn(borrowingId) == true) {
+            BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)6);
+            libraryElementId = BorrowingDataAccess.getLibraryElementByBorrowingId(borrowingId);
+            BookDataAccess.updateLibraryElementStatusById(libraryElementId, 1);
+        } else {
+            System.out.println("Niepoprawny Id wypożyczenia");
+            returningView(libraryUser);
+        }
+
+        System.out.println("Pozycja została zwrócona");
+        UserMenu.returningView(libraryUser);
     }
 
 }

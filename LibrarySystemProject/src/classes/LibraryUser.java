@@ -60,6 +60,31 @@ public class LibraryUser extends User{
 
     }
 
+    public void getBorrowingsToReturn() {
+
+      /*  userBorrowingsList.clear();
+        BorrowingDataAccess.getAllBorrowingsToReturnByUserId(this.getUserId(), this);*/
+
+        for (Borrowing borrowingObj : userBorrowingsList) {
+            if (borrowingObj.getBorrowingStatusId() == 4 ) {
+                System.out.println("status" + borrowingObj.getBorrowingStatusId());
+                System.out.println(borrowingObj.getBorrowingData());
+                System.out.println("");
+            }
+        }
+
+    }
+
+    public boolean checkBorrowingAvailableToReturn(int borrowingId) {
+        for (Borrowing borrowingObj : userBorrowingsList) {
+            if (borrowingObj.borrowingId == borrowingId && borrowingObj.getBorrowingStatusId() == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private class Borrowing {
 
         private int borrowingId;

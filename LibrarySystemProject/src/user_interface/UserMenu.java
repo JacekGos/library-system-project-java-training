@@ -50,7 +50,7 @@ public final class UserMenu implements MenuHelper {
                 userBorrowingsView(libraryUser);
                 break;
             case 5:
-                MenuHelper.logOnPanel();
+                UserAuthentication.logOnPanel();
                 break;
             default:
                 System.out.println("Błąd!\n ");

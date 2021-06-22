@@ -62,7 +62,7 @@ public final class WorkerMenu implements MenuHelper {
                 findLibraryElementView(libraryWorker);
                 break;
             case 8:
-                MenuHelper.logOnPanel();
+                UserAuthentication.logOnPanel();
                 break;
             default:
                 System.out.println("Błąd!\n ");

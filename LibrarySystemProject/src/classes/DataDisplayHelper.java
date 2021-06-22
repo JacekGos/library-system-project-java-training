@@ -79,4 +79,23 @@ public interface DataDisplayHelper {
 
         return typeString;
     }
+
+    static String formatUserTypeToString(int userType) {
+
+        String userTypeString = null;
+
+        switch (userType) {
+            case 1:
+                userTypeString = "Pracownik";
+                break;
+            case 2:
+                userTypeString = "Użytkownik";
+                break;
+            default:
+                userTypeString = "Błąd";
+                break;
+        }
+
+        return userTypeString;
+    }
 }

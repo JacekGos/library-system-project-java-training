@@ -72,8 +72,10 @@ public abstract class User {
         this.accountType = accountType;
     }
 
+    // zamienic na toString()
     public String getUserData() {
-        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
+        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- "
+                + DataDisplayHelper.formatUserTypeToString(getAccountType());
     }
 
 }

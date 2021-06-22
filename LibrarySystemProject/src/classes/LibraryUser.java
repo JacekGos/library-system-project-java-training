@@ -28,7 +28,7 @@ public class LibraryUser extends User{
 
     @Override
     public String getUserData() {
-        return getUserId() + " -- " + getUserName() + " -- " + getUserSurName() + " -- " + getLogin() + " -- " + getAccountType();
+        return super.getUserData();
     }
 
     public void addBorrowing(int borrowingId, int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {

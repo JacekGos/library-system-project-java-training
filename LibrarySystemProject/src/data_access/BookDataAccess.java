@@ -146,7 +146,7 @@ public class BookDataAccess {
         int status = 0;
 
         try {
-
+            System.out.println("Update...");
             Connection connection = getConnection();
 
             String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Library_element]" +

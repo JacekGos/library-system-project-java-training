@@ -3,12 +3,13 @@ package data_access;
 import classes.LibraryUser;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.ArrayList; // @TODO wywal
 import java.util.List;
 
 
 public class BorrowingDataAccess {
 
+    //@TODO change getConnection to singleton
     public static Connection getConnection() {
 
         String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
@@ -24,6 +25,19 @@ public class BorrowingDataAccess {
 
     }
 
+    /**
+     * Creates entry with relation LibraryUser to LibraryElement.
+     * @see LibraryUser
+     * @see classes.LibraryElement
+     *
+     * @param libraryElementId int
+     * @param borrowingDate
+     * @param borrowingStatusId
+     * @param libraryUserId
+     * @return int
+     *
+     *
+     */
     public static int insertBorrowing(int libraryElementId, java.sql.Timestamp borrowingDate, int borrowingStatusId, int libraryUserId) {
 
         int status = 0;

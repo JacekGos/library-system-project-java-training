@@ -13,6 +13,7 @@ public interface MenuHelper {
 
     Scanner myInput = new Scanner( System.in );
 
+    // @TODO move logOn logic to another class such as UserAuthentication
     static void logOnPanel() {
 
         boolean userDataNotNull = false;

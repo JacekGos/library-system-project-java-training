@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class WorkerMenu implements MenuHelper {
+public final class WorkerMenu implements MenuHelper {
+    //Library elements sort
+    private static final int SORT_CRIMINAL = 3;
 
     private static Scanner myInput = new Scanner(System.in);
     private static byte choosedOption = 0;
@@ -115,6 +117,7 @@ public class WorkerMenu implements MenuHelper {
 
     private static void findUserView(LibraryWorker libraryWorker) {
 
+        System.out.println("_____________________");
         System.out.println("Wyszukiwarka użytkowników:\n" +
                 "1. Wyszukaj użytkownika\n" +
                 "2. Powrót");
@@ -149,7 +152,7 @@ public class WorkerMenu implements MenuHelper {
             System.out.println(requestObj.getRequestData(libraryWorker));
         }
 
-        System.out.println("1. Kontynuuj\n" +
+        System.out.println("1. Przejdź do potwierdzenia\n" +
                 "2. Powrót");
         System.out.print("Wybierz opcje: ");
 
@@ -290,31 +293,21 @@ public class WorkerMenu implements MenuHelper {
 
     public static void userAccountRemover(LibraryWorker libraryWorker) {
 
-        int accountType = 0;
+        int choosedOption = 0;
         int userId = 0;
         int status = 0;
 
         System.out.println("_____________________");
         System.out.println("Usuwanie konta: ");
-        System.out.print("1. Pracownik\n" +
-                "2. Użytkownik\n");
+        System.out.print("1. Przejdź dalej\n" +
+                "2. Powrót\n");
         System.out.print("Wybierz opcje: ");
-        accountType = MenuHelper.checkChoosedOptionValidation(2);
+        choosedOption = MenuHelper.checkChoosedOptionValidation(2);
 
-        System.out.print("Podaj id użytkownika: ");
-        userId = MenuHelper.checkChoosedOptionValidation(-1);
+        if (choosedOption == 1) {
 
-        if (accountType == 1) {
-
-            status = LibraryWorkerDataAccess.deleteLibraryWorker(userId);
-
-            if (status > 0) {
-                System.out.printf("Użytkownik o id %d został usunięty%n", userId);
-            } else {
-                System.out.println("Coś poszło nie tak");
-            }
-
-        } else if (accountType == 2) {
+            System.out.print("Podaj id użytkownika: ");
+            userId = MenuHelper.checkChoosedOptionValidation(-1);
 
             status = LibraryUserDataAccess.deleteLibraryUser(userId);
 
@@ -324,8 +317,10 @@ public class WorkerMenu implements MenuHelper {
                 System.out.println("Coś poszło nie tak");
             }
 
-
-        } else {
+        } else if (choosedOption == 2) {
+            deleteAccountView(libraryWorker);
+        }
+        else {
             System.out.println("Nastąpił błąd!");
             WorkerMenu.deleteAccountView(libraryWorker);
         }
@@ -419,7 +414,7 @@ public class WorkerMenu implements MenuHelper {
 
             MovieDataAccess.insertMovie(movieToCreate);
 
-        } else if (libraryElementType == 3) {
+        } else if (libraryElementType == SORT_CRIMINAL) {
             System.out.println("Opcja chwilowo niedostępna");
             WorkerMenu.libraryElementCreator(libraryWorker);
         } else {
@@ -508,7 +503,7 @@ public class WorkerMenu implements MenuHelper {
         System.out.print("Podaj id użytkownika: ");
         userId = MenuHelper.checkChoosedOptionValidation(-1);
 
-        requestListByUser = createRequestListByUser(libraryWorker, requestList, userId);
+        requestListByUser = getRequestListByUser(libraryWorker, requestList, userId);
 
         System.out.println("Id -- Id wypożyczenia -- Data zapytania -- Id Użytkownika -- Status zapytania");
         for (Request requestObj : requestListByUser)
@@ -533,6 +528,7 @@ public class WorkerMenu implements MenuHelper {
                 case 1:
                     BorrowingDataAccess.updateBorrowingStatus(borrowingId, (byte)1);
                     libraryElementId = RequestDataAccess.getLibraryElementIdByRequestId(libraryWorker, requestId);
+                    System.out.println(libraryElementId);
                     BookDataAccess.updateLibraryElementStatusById(libraryElementId, 3);
                     RequestDataAccess.deleteRequest(requestId);
 
@@ -557,7 +553,7 @@ public class WorkerMenu implements MenuHelper {
 
     }
 
-    public static List<Request> createRequestListByUser(LibraryWorker libraryWorker, List<Request> requestList, int userId) {
+    public static List<Request> getRequestListByUser(LibraryWorker libraryWorker, List<Request> requestList, int userId) {
 
         List<Request> requestListByUser = new ArrayList<Request>();
 

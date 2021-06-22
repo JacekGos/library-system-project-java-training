@@ -129,7 +129,7 @@ public class RequestDataAccess {
 
         int libraryElementId = 0;
 
-        String sqlQuery = "SELECT [library_user_id] FROM [LibraryProject_v2].[dbo].[Borrowings] AS b"
+        String sqlQuery = "SELECT [element_id] FROM [LibraryProject_v2].[dbo].[Borrowings] AS b"
                 + " INNER JOIN [LibraryProject_v2].[dbo].[Request] AS r"
                 + " ON b.borrowing_id = r.borrowing_id "
                 + " WHERE request_id LIKE ?";

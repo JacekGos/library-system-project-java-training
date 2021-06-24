@@ -13,7 +13,6 @@ public final class UserAuthentication {
     private UserAuthentication() {}
     private static Scanner myInput = new Scanner( System.in );
 
-    // @TODO move logOn logic to another class such as UserAuthentication
     public static void logOnPanel() {
 
         boolean userDataNotNull = false;

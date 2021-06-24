@@ -8,22 +8,14 @@ import java.util.List;
 
 public class BookDataAccess {
 
-    public static Connection getConnection() {
+    static Connection connection;
 
-        String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
-        Connection connection = null;
-
+    static {
         try {
-            connection = DriverManager.getConnection(urlConnection);
-
-            System.out.println("Connected to data base");
-
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return connection;
-
     }
 
     public static int insertBook(Book book) {
@@ -35,8 +27,6 @@ public class BookDataAccess {
 
         try {
 
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, book.getTitle());
             preparedStatement.setInt(2, book.getTypeId());
@@ -45,8 +35,6 @@ public class BookDataAccess {
             preparedStatement.setInt(5, book.getStatusId());
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -61,8 +49,6 @@ public class BookDataAccess {
 
         title = "%" + title + "%";
         sort = "%" + sort + "%";
-
-        Connection connection = getConnection();
 
         try {
 
@@ -95,7 +81,6 @@ public class BookDataAccess {
 
             }
 
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -109,9 +94,6 @@ public class BookDataAccess {
         Book book = new Book();
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -144,7 +126,6 @@ public class BookDataAccess {
 
         try {
             System.out.println("Update...");
-            Connection connection = getConnection();
 
             String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Library_element]" +
                     "SET status_id = ? WHERE library_element_id = ?";
@@ -154,8 +135,6 @@ public class BookDataAccess {
             preparedStatement.setInt(2, bookId);
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -172,16 +151,12 @@ public class BookDataAccess {
 
         try {
 
-            Connection connection = getConnection();
-
             String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, libraryElementId);
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

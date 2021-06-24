@@ -6,20 +6,14 @@ import java.sql.*;
 
 public class BorrowingDataAccess {
 
-    //@TODO change getConnection to singleton
-    public static Connection getConnection() {
+    static Connection connection;
 
-        String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
-        Connection connection = null;
-
+    static {
         try {
-            connection = DriverManager.getConnection(urlConnection);
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return connection;
-
     }
 
     /**
@@ -44,8 +38,6 @@ public class BorrowingDataAccess {
 
         try {
 
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, libraryElementId);
             preparedStatement.setTimestamp(2, borrowingDate);
@@ -53,8 +45,6 @@ public class BorrowingDataAccess {
             preparedStatement.setInt(4, libraryUserId);
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -68,9 +58,6 @@ public class BorrowingDataAccess {
         String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE library_user_id = ?";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, userId);
 
@@ -87,9 +74,6 @@ public class BorrowingDataAccess {
                 libraryUser.addBorrowing(borrowingId, elementId, date, statusId, libraryUserId);
 
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -101,9 +85,6 @@ public class BorrowingDataAccess {
         String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE library_user_id = ? AND status_id = 5";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, userId);
 
@@ -120,9 +101,6 @@ public class BorrowingDataAccess {
                 libraryUser.addBorrowing(borrowingId, elementId, date, statusId, libraryUserId);
 
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -134,9 +112,6 @@ public class BorrowingDataAccess {
         String sqlQuery = "SELECT [element_id] FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE borrowing_id LIKE ?";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, borrowingIdArg);
 
@@ -148,9 +123,6 @@ public class BorrowingDataAccess {
 
                 return libraryElement;
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -162,9 +134,6 @@ public class BorrowingDataAccess {
         String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Borrowings] WHERE borrowing_id = ?";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, borrowingIdArg);
 
@@ -178,9 +147,6 @@ public class BorrowingDataAccess {
                     return true;
                 }
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -194,9 +160,6 @@ public class BorrowingDataAccess {
         int lastBorrowingId = 0;
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -206,9 +169,6 @@ public class BorrowingDataAccess {
                 lastBorrowingId = resultSet.getInt(1);
 
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -222,17 +182,11 @@ public class BorrowingDataAccess {
         String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
                 "SET status_id = ? WHERE borrowing_id LIKE ?";
 
-       /* String sqlQuery2 = "UPDATE [LibraryProject_v2].[dbo].[Borrowings]" +
-                "SET status_id = 5 WHERE borrowing_id LIKE ?";*/
-
         int status = 0;
 
         try {
 
             PreparedStatement preparedStatement = null;
-
-            Connection connection = getConnection();
-
             preparedStatement = connection.prepareStatement(sqlQuery);
 
             preparedStatement.setInt(1, borrowingStatus);
@@ -240,14 +194,10 @@ public class BorrowingDataAccess {
 
             status = preparedStatement.executeUpdate();
 
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return status;
-
     }
 
 }

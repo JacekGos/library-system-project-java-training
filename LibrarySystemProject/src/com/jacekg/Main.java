@@ -1,11 +1,14 @@
 package com.jacekg;
 
-import user_interface.MenuHelper;
+import data_access.DBConnection;
 import user_interface.UserAuthentication;
+
+import java.sql.Connection;
 
 public class Main {
 
     public static void main(String[] args) {
+
 
         UserAuthentication.logOnPanel();
 

@@ -2,12 +2,16 @@ package user_interface;
 
 import classes.*;
 import data_access.*;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import classes.LibraryUser;
 
 public final class WorkerMenu implements MenuHelper {
-    //Library elements sort
+    //Library elements sort (test)
     private static final int SORT_CRIMINAL = 3;
 
     private static Scanner myInput = new Scanner(System.in);
@@ -434,7 +438,7 @@ public final class WorkerMenu implements MenuHelper {
         System.out.print("Podaj id pozycji: ");
         libraryElementId = MenuHelper.checkChoosedOptionValidation(-1);
 
-        status = BookDataAccess.deleteLibraryElement(libraryElementId);
+//        status = BookDataAccess.deleteLibraryElement(libraryElementId);
 
         if (status > 0) {
             System.out.printf("Pozycja o id %d została usunięta%n", libraryElementId);

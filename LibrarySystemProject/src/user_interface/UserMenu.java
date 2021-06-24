@@ -1,11 +1,10 @@
 package user_interface;
 
 import classes.*;
-import data_access.BookDataAccess;
-import data_access.BorrowingDataAccess;
-import data_access.MovieDataAccess;
-import data_access.RequestDataAccess;
+import data_access.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +14,15 @@ public final class UserMenu implements MenuHelper {
 
     private static Scanner myInput = new Scanner( System.in );
     private static byte choosedOption = 0;
+    static Connection connection;
 
+    static {
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     private UserMenu(){}
 
     public static void showUserMenu(LibraryUser libraryUser){
@@ -28,7 +35,11 @@ public final class UserMenu implements MenuHelper {
                             "4. Twoje wypożyczenia\n" +
                             "5. Wyloguj");
         System.out.print("Wybierz opcje: ");
-
+        try {
+            System.out.println(connection.isClosed());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(5);
 
         chooseUserMenuOption(choosedOption, libraryUser);

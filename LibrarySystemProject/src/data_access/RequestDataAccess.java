@@ -8,32 +8,23 @@ import java.util.List;
 
 public class RequestDataAccess {
 
-    public static Connection getConnection() {
+    static Connection connection;
 
-        String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
-        Connection connection = null;
-
+    static {
         try {
-            connection = DriverManager.getConnection(urlConnection);
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return connection;
-
     }
 
     public static int insertRequest(Request request) {
-
         int status = 0;
 
         String sqlQuery = "INSERT INTO [LibraryProject_v2].[dbo].[Request]"
                 + "VALUES (?, ?, ?)";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, request.getBorrowingId());
             preparedStatement.setTimestamp(2, request.getRequestDate());
@@ -57,9 +48,6 @@ public class RequestDataAccess {
         String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Request]";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -75,19 +63,14 @@ public class RequestDataAccess {
                 requestList.add(request);
 
             }
-
             connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return requestList;
-
     }
 
     public static int getUserIdByBorrowingId(LibraryWorker libraryWorker, int borrowingId) {
-
         int userId = 0;
 
         String sqlQuery = "SELECT [library_user_id] FROM [LibraryProject_v2].[dbo].[Borrowings] AS b"
@@ -96,30 +79,20 @@ public class RequestDataAccess {
                 + " WHERE b.borrowing_id LIKE ?";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
             preparedStatement.setInt(1, borrowingId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-
             while (resultSet.next()) {
-
                 userId = resultSet.getInt(1);
-
             }
-
             connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return userId;
-
     }
 
     public static int getLibraryElementIdByRequestId(LibraryWorker libraryWorker, int requestId) {
@@ -132,9 +105,6 @@ public class RequestDataAccess {
                 + " WHERE request_id LIKE ?";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
             preparedStatement.setInt(1, requestId);
@@ -147,19 +117,15 @@ public class RequestDataAccess {
                 libraryElementId = resultSet.getInt(1);
 
             }
-
             connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         return libraryElementId;
-
     }
 
     public static int updateRequestStatus(int requestId, byte option) {
-
         String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Request]" +
                 "SET status_id = 4 WHERE request_id LIKE ?";
 
@@ -169,10 +135,7 @@ public class RequestDataAccess {
         int status = 0;
 
         try {
-
             PreparedStatement preparedStatement = null;
-            
-            Connection connection = getConnection();
 
             if (option == 1) {
                 
@@ -198,13 +161,9 @@ public class RequestDataAccess {
     }
 
     public static int deleteRequest(int requestId) {
-
         int status = 0;
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Request] WHERE request_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -213,11 +172,9 @@ public class RequestDataAccess {
             status = preparedStatement.executeUpdate();
 
             connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return status;
     }
 

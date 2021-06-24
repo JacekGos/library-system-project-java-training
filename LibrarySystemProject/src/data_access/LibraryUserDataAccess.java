@@ -8,21 +8,14 @@ import java.util.List;
 
 public class LibraryUserDataAccess {
 
-    public static Connection getConnection() {
+    static Connection connection;
 
-        String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
-        Connection connection = null;
-
+    static {
         try {
-
-            connection = DriverManager.getConnection(urlConnection);
-
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return connection;
-
     }
 
     public static int insertLibraryUser(LibraryUser libraryUser) {
@@ -33,9 +26,6 @@ public class LibraryUserDataAccess {
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, libraryUser.getUserName());
             preparedStatement.setString(2, libraryUser.getUserSurName());
@@ -44,10 +34,7 @@ public class LibraryUserDataAccess {
             preparedStatement.setDouble(5, libraryUser.getPenalty());
             preparedStatement.setInt(6, libraryUser.getAccountType());
 
-
             status = preparedStatement.executeUpdate();
-
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -61,9 +48,6 @@ public class LibraryUserDataAccess {
         int status = 0;
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "UPDATE [LibraryProject_v2].[dbo].[Library_user]" +
                     "SET name = ?, surname = ?, login = ?, password = ?, penalty = ?, account_type = ? WHERE library_user_id = ?";
 
@@ -77,14 +61,11 @@ public class LibraryUserDataAccess {
 
             status = preparedStatement.executeUpdate();
 
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         return status;
-
     }
 
     public static int deleteLibraryUser(int libraryUserId) {
@@ -92,18 +73,12 @@ public class LibraryUserDataAccess {
         int status = 0;
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "DELETE FROM [LibraryProject_v2].[dbo].[Library_user] WHERE library_user_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, libraryUserId);
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -116,9 +91,6 @@ public class LibraryUserDataAccess {
         LibraryUser libraryUser = new LibraryUser();
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_user] WHERE login = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -146,10 +118,7 @@ public class LibraryUserDataAccess {
     }
 
     public static int getNumberOfLibraryUsersByNameAndSurname(String name, String surName) {
-
         List<LibraryUser> libraryUserList = new ArrayList<LibraryUser>();
-
-        Connection connection = getConnection();
 
         try {
 
@@ -174,8 +143,6 @@ public class LibraryUserDataAccess {
                 libraryUserList.add(libraryUser);
             }
 
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -184,10 +151,7 @@ public class LibraryUserDataAccess {
     }
 
     public static List<LibraryUser> getAllLibraryUsersByNameSurNameId(String name, String surName, int userId) {
-
         List<LibraryUser> libraryUserList = new ArrayList<LibraryUser>();
-
-        Connection connection = getConnection();
 
         try {
 
@@ -215,9 +179,6 @@ public class LibraryUserDataAccess {
 
                 libraryUserList.add(libraryUser);
             }
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -8,22 +8,14 @@ import java.util.List;
 
 public class MovieDataAccess {
 
-    public static Connection getConnection() {
+    static Connection connection;
 
-        String urlConnection = "jdbc:sqlserver://DESKTOP-2NG6J3P;databaseName=LibraryProject_v2;integratedSecurity=true";
-        Connection connection = null;
-
+    static {
         try {
-            connection = DriverManager.getConnection(urlConnection);
-
-            System.out.println("Connected to data base");
-
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return connection;
-
     }
 
     public static int insertMovie(Movie movie) {
@@ -34,9 +26,6 @@ public class MovieDataAccess {
                 + "VALUES (?, ?, ?, NULL, ?, ?)";
 
         try {
-
-            Connection connection = getConnection();
-
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, movie.getTitle());
             preparedStatement.setInt(2, movie.getTypeId());
@@ -45,9 +34,6 @@ public class MovieDataAccess {
             preparedStatement.setInt(5, movie.getStatusId());
 
             status = preparedStatement.executeUpdate();
-
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -56,13 +42,10 @@ public class MovieDataAccess {
     }
 
     public static List<Movie> getAllMoviesByTitleAndSort(String title, String sort) {
-
         List<Movie> movieList = new ArrayList<Movie>();
 
         title = "%" + title + "%";
         sort = "%" + sort + "%";
-
-        Connection connection = getConnection();
 
         try {
 
@@ -97,7 +80,6 @@ public class MovieDataAccess {
 
             }
 
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -107,13 +89,9 @@ public class MovieDataAccess {
     }
 
     public static Movie getMovieById(int movieId) {
-
         Movie movie = new Movie();
 
         try {
-
-            Connection connection = getConnection();
-
             String sqlQuery = "SELECT * FROM [LibraryProject_v2].[dbo].[Library_element] WHERE library_element_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);

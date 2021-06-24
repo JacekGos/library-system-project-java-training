@@ -54,7 +54,13 @@ public interface MenuHelper {
         surName = new String(surNameArray);
         login = name + "." + surName;
 
-        repeatedLogin = LibraryWorkerDataAccess.getNumberOfLibraryWorkersByNameAndSurname(name, surName);
+        if (accountType == 1) {
+            repeatedLogin = LibraryWorkerDataAccess.getNumberOfLibraryWorkersByNameAndSurname(name, surName);
+        } else if (accountType == 2) {
+            repeatedLogin = LibraryUserDataAccess.getNumberOfLibraryUsersByNameAndSurname(name, surName);
+        }
+
+
 
         if (repeatedLogin == 0) {
             login = name + "." + surName;

@@ -1,6 +1,7 @@
 package com.jacekg;
 
 import data_access.DBConnection;
+import user_interface.MenuHelper;
 import user_interface.UserAuthentication;
 
 import java.sql.Connection;
@@ -11,7 +12,6 @@ public class Main {
 
 
         UserAuthentication.logOnPanel();
-
-
+        
     }
 }

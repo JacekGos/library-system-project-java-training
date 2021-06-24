@@ -80,7 +80,7 @@ public class BookDataAccess {
                 }
 
             }
-            connection.close();
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

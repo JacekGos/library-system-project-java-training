@@ -32,8 +32,6 @@ public class RequestDataAccess {
 
             status = preparedStatement.executeUpdate();
 
-            connection.close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -63,7 +61,6 @@ public class RequestDataAccess {
                 requestList.add(request);
 
             }
-            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -88,7 +85,6 @@ public class RequestDataAccess {
             while (resultSet.next()) {
                 userId = resultSet.getInt(1);
             }
-            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -117,7 +113,6 @@ public class RequestDataAccess {
                 libraryElementId = resultSet.getInt(1);
 
             }
-            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -149,8 +144,6 @@ public class RequestDataAccess {
             preparedStatement.setInt(1, requestId);
 
             status = preparedStatement.executeUpdate();
-            
-            connection.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -171,7 +164,6 @@ public class RequestDataAccess {
 
             status = preparedStatement.executeUpdate();
 
-            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

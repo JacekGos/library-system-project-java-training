@@ -17,16 +17,6 @@ public final class WorkerMenu implements MenuHelper {
     private static Scanner myInput = new Scanner(System.in);
     private static byte choosedOption = 0;
 
-    static Connection connection;
-
-    static {
-        try {
-            connection = DBConnection.getInstance().getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
     private WorkerMenu() {
     }
 
@@ -43,11 +33,6 @@ public final class WorkerMenu implements MenuHelper {
                 "7. Wyszukaj pozycje\n" +
                 "8. Wyloguj");
         System.out.print("Wybierz opcje: ");
-        try {
-            System.out.println(connection.isClosed());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         choosedOption = (byte) MenuHelper.checkChoosedOptionValidation(8);
 
         chooseWorkerMenuOption(choosedOption, libraryWorker);

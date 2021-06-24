@@ -77,10 +77,7 @@ public class MovieDataAccess {
                     movieList.add(movie);
 
                 }
-
             }
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
